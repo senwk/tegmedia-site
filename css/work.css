@@ -1110,3 +1110,4 @@ body.menu-open{ overflow:hidden }
 .enq .pnote{ font-size:14px; line-height:1.55; color:var(--soft); margin:6px 0 16px }
 .enq .pnote a{ color:var(--red); text-decoration:underline; text-underline-offset:3px }
 .foot .base a{ color:inherit; text-decoration:underline; text-underline-offset:3px }
+.legal ul + p{ margin-top:16px }
