@@ -1,0 +1,5 @@
+# built output: regenerate with node build-site.js / node build-wp-theme.js
+dist/
+out/
+.wrangler/
+node_modules/

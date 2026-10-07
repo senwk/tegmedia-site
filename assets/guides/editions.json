@@ -1,0 +1,102 @@
+{
+ "welcome": [
+  {
+   "slug": "ewg-2026",
+   "label": "2026",
+   "id": "005063995a0c2fca8d915",
+   "url": "https://www.calameo.com/read/005063995a0c2fca8d915",
+   "w": 300,
+   "h": 425
+  },
+  {
+   "slug": "ewg-2025",
+   "label": "2025",
+   "id": "005063995aeadaa67dbaa",
+   "url": "https://www.calameo.com/read/005063995aeadaa67dbaa",
+   "w": 300,
+   "h": 426
+  },
+  {
+   "slug": "ewg-2024",
+   "label": "2024",
+   "id": "0050639952b4beb0e0bea",
+   "url": "https://www.calameo.com/read/0050639952b4beb0e0bea",
+   "w": 300,
+   "h": 426
+  },
+  {
+   "slug": "ewg-2023",
+   "label": "2023",
+   "id": "005063995207d152f11c6",
+   "url": "https://www.calameo.com/read/005063995207d152f11c6",
+   "w": 300,
+   "h": 426
+  },
+  {
+   "slug": "ewg-2022",
+   "label": "2022",
+   "id": "005063995b525d2753b8b",
+   "url": "https://www.calameo.com/read/005063995b525d2753b8b",
+   "w": 300,
+   "h": 426
+  },
+  {
+   "slug": "ewg-2021",
+   "label": "2021",
+   "id": "005063995a2fa282f5313",
+   "url": "https://www.calameo.com/read/005063995a2fa282f5313",
+   "w": 300,
+   "h": 427
+  }
+ ],
+ "education": [
+  {
+   "slug": "edu-2026-2027",
+   "label": "2026/27",
+   "id": "005063995f38876cf09b3",
+   "url": "https://www.calameo.com/read/005063995f38876cf09b3",
+   "w": 300,
+   "h": 424
+  },
+  {
+   "slug": "edu-2025-2026",
+   "label": "2025/26",
+   "id": "0050639952bfadf65463c",
+   "url": "https://www.calameo.com/read/0050639952bfadf65463c",
+   "w": 300,
+   "h": 424
+  },
+  {
+   "slug": "edu-2024-2025",
+   "label": "2024/25",
+   "id": "00506399568d39a08ec68",
+   "url": "https://www.calameo.com/read/00506399568d39a08ec68",
+   "w": 300,
+   "h": 424
+  },
+  {
+   "slug": "edu-2023-2024",
+   "label": "2023/24",
+   "id": "005063995fe189e317910",
+   "url": "https://www.calameo.com/read/005063995fe189e317910",
+   "w": 300,
+   "h": 424
+  },
+  {
+   "slug": "edu-2022-2023",
+   "label": "2022/23",
+   "id": "005063995f78249687b6b",
+   "url": "https://www.calameo.com/read/005063995f78249687b6b",
+   "w": 300,
+   "h": 424
+  },
+  {
+   "slug": "edu-2021-2022",
+   "label": "2021/22",
+   "id": "0050639954a7920476863",
+   "url": "https://www.calameo.com/read/0050639954a7920476863",
+   "w": 300,
+   "h": 424
+  }
+ ]
+}

@@ -1,0 +1,173 @@
+/* ===========================================================================
+   DESIGN B: CORPORATE
+   The register of the ITP company overview: TEG navy, white, a thin line of
+   red. Split-screen hero with the latest issue on the city, then the group's
+   substance: four companies and thirty years of dates.
+   =========================================================================== */
+.b{ --accent:var(--red) }
+
+/* ---------- header ---------- */
+.b .util{ background:var(--navy); color:rgba(255,255,255,.75); font-size:13.5px }
+.b .util .wrap{ display:flex; justify-content:space-between; align-items:center; height:40px }
+.b .util .serif{ color:#fff }
+.b .top{ background:#fff; border-bottom:1px solid var(--rule); position:sticky; top:0; z-index:10 }
+.b .bar{ display:flex; align-items:center; height:92px; gap:48px }
+.b .brand svg{ width:168px; height:auto; color:var(--ink); display:block }
+.b .nav{ display:flex; gap:32px; margin-left:auto; font-family:var(--display); font-weight:600;
+         font-size:14px; color:var(--ink) }
+.b .nav a{ padding:8px 0; border-bottom:2px solid transparent }
+.b .nav a:hover{ border-color:var(--red) }
+.b .btn.hdr{ padding:14px 22px }
+
+/* ---------- hero ---------- */
+.b .hero{ position:relative; min-height:760px; display:flex; align-items:center; overflow:hidden }
+.b .hero .grid{ position:relative; z-index:1 }
+.b .hero .txt{ width:50%; padding:90px 60px 90px 0 }
+.b .hero h1{ font-family:var(--display); font-weight:800; font-size:64px; line-height:1.04;
+             letter-spacing:-.025em; color:var(--navy); margin-top:22px }
+.b .hero h1 .serif{ display:block; font-size:62px; letter-spacing:-.01em; color:var(--red); margin-top:4px }
+.b .hero .lede{ margin-top:26px; max-width:520px }
+.b .hero .cta{ display:flex; gap:14px; margin-top:36px }
+.b .titles{ display:flex; align-items:center; gap:28px; margin-top:56px; padding-top:26px;
+            border-top:1px solid var(--rule) }
+.b .titles span{ font-family:var(--display); font-weight:700; font-size:11px; letter-spacing:.2em;
+                 text-transform:uppercase; color:var(--grey) }
+.b .titles img{ height:34px; width:auto; filter:grayscale(1); opacity:.75 }
+.b .titles img.m{ height:30px; filter:invert(1) grayscale(1); opacity:.8 }
+.b .hero .pic{ position:absolute; top:0; right:0; bottom:0; width:46%; overflow:visible }
+.b .hero .city{ width:100%; height:100%; object-fit:cover; object-position:40% 50% }
+.b .issue{ position:absolute; left:-90px; bottom:70px; display:flex; align-items:flex-end; gap:0;
+           background:#fff; box-shadow:0 30px 60px rgba(6,16,43,.28) }
+.b .issue img{ width:170px; height:240px; object-fit:cover; display:block }
+.b .issue div{ padding:24px 26px 24px 24px; width:200px }
+.b .issue span{ display:block; font-family:var(--display); font-weight:700; font-size:11px;
+                letter-spacing:.2em; text-transform:uppercase; color:var(--grey) }
+.b .issue b{ display:block; font-family:var(--serif); font-style:italic; font-weight:400; font-size:22px;
+             color:var(--navy); margin-top:8px; line-height:1.2 }
+.b .issue i{ display:block; font-style:normal; font-family:var(--display); font-weight:700; font-size:12px;
+             letter-spacing:.12em; text-transform:uppercase; color:var(--red); margin-top:18px }
+
+/* ---------- figures ---------- */
+.b .figs{ background:var(--navy); color:#fff; padding:84px 0 }
+.b .figs .row{ display:grid; grid-template-columns:repeat(4,1fr); gap:40px }
+.b .figs .row div{ border-top:2px solid var(--red); padding-top:24px }
+.b .figs b{ display:block; font-family:var(--display); font-weight:800; font-size:54px; line-height:1;
+            letter-spacing:-.02em }
+.b .figs span{ display:block; font-size:15px; color:rgba(255,255,255,.66); margin-top:14px; max-width:240px }
+
+/* ---------- the group ---------- */
+.b .group{ padding:130px 0 }
+.b .group .head{ max-width:720px }
+.b .group .lede{ margin-top:20px }
+.b .cos{ display:grid; grid-template-columns:repeat(4,1fr); margin-top:64px;
+         border-top:1px solid var(--rule) }
+.b .cos div{ padding:34px 32px 10px 0 }
+.b .cos div + div{ border-left:1px solid var(--rule); padding-left:32px }
+.b .cos .n{ font-family:var(--display); font-weight:700; font-size:13px; color:var(--red); letter-spacing:.1em }
+.b .cos h3{ font-size:26px; line-height:1.2; color:var(--navy); margin-top:18px }
+.b .cos b{ display:block; font-family:var(--display); font-weight:700; font-size:11.5px; letter-spacing:.2em;
+           text-transform:uppercase; color:var(--grey); margin-top:10px }
+.b .cos p{ color:var(--soft); font-size:16px; margin-top:16px }
+
+/* ---------- timeline ---------- */
+.b .time{ background:var(--warm); padding:120px 0 }
+.b .tl{ list-style:none; margin:70px 0 0; padding:0; display:grid; grid-template-columns:repeat(6,1fr);
+          position:relative }
+.b .tl::before{ content:""; position:absolute; left:0; right:0; top:38px; height:2px; background:#D8D4CC }
+.b .tl li{ position:relative; padding-right:26px }
+.b .tl b{ display:block; font-family:var(--serif); font-style:italic; font-weight:400; font-size:30px;
+            color:var(--navy); line-height:1 }
+.b .tl li::after{ content:""; position:absolute; left:0; top:32px; width:14px; height:14px; border-radius:50%;
+                    background:var(--warm); border:2px solid var(--navy) }
+.b .tl li.now::after{ background:var(--red); border-color:var(--red) }
+.b .tl li.now b{ color:var(--red) }
+.b .tl p{ margin-top:48px; font-size:15.5px; color:var(--soft) }
+
+/* ---------- brands ---------- */
+.b .brands{ padding:130px 0 }
+.b .shelf{ display:grid; grid-template-columns:1.25fr 1fr 1fr; grid-template-rows:auto auto; gap:24px; margin-top:60px }
+.b .feat{ grid-row:span 2; background:var(--navy); color:#fff; display:flex; flex-direction:column }
+.b .feat .im{ background:#0C1A3F; padding:40px 36px 0; flex:1; display:flex; align-items:flex-end }
+.b .feat .im img{ width:100%; box-shadow:0 24px 50px rgba(0,0,0,.45) }
+.b .feat .t{ padding:34px 36px 38px }
+.b .feat .eyebrow{ color:#fff; opacity:.6 }
+.b .feat h3{ font-family:var(--display); font-weight:800; font-size:30px; margin-top:10px }
+.b .feat p{ color:rgba(255,255,255,.75); margin-top:10px }
+.b .feat .more{ display:inline-block; margin-top:22px; color:#fff }
+.b .tile{ border:1px solid var(--rule); display:flex; gap:24px; align-items:center; padding:28px;
+          transition:box-shadow .25s,transform .25s }
+.b .tile:hover{ transform:translateY(-3px); box-shadow:0 16px 36px rgba(6,16,43,.08) }
+.b .tile .cv{ width:104px; flex:none; box-shadow:0 10px 24px rgba(0,0,0,.2) }
+.b .tile.lg{ flex-direction:column; align-items:flex-start; justify-content:space-between }
+.b .tile .lo{ height:46px; width:auto }
+.b .tile h3{ font-family:var(--display); font-weight:800; font-size:19px; color:var(--navy) }
+.b .tile p{ color:var(--soft); font-size:15.5px; margin-top:8px }
+
+/* ---------- events ---------- */
+.b .events{ display:grid; grid-template-columns:1fr 1fr; background:var(--navy); color:#fff; min-height:620px }
+.b .events .pic img{ width:100%; height:100%; object-fit:cover }
+.b .events .txt{ padding:110px 90px; display:flex; flex-direction:column; justify-content:center; align-items:flex-start }
+.b .events .eyebrow{ color:#fff; opacity:.6 }
+.b .events .lede{ color:rgba(255,255,255,.78); margin:22px 0 36px }
+
+/* ---------- clients ---------- */
+.b .clients{ padding:120px 0 }
+.b .clients .head{ margin-bottom:28px }
+
+/* ---------- contact ---------- */
+.b .contact{ background:var(--warm); padding:120px 0; border-top:4px solid var(--red) }
+.b .contact .grid{ display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start }
+.b .contact .lede{ margin-top:20px }
+.b .contact .cta{ margin-top:34px }
+.b .ways{ display:grid; grid-template-columns:120px 1fr; margin:0; border-top:1px solid #D8D4CC }
+.b .ways dt, .b .ways dd{ padding:20px 0; border-bottom:1px solid #D8D4CC; margin:0 }
+.b .ways dt{ font-family:var(--display); font-weight:700; font-size:12px; letter-spacing:.18em;
+             text-transform:uppercase; color:var(--grey); padding-top:24px }
+.b .ways dd{ font-size:19px; color:var(--navy); font-weight:500 }
+
+/* ---------- footer ---------- */
+.b .foot{ background:#040A1C; color:rgba(255,255,255,.66); padding:90px 0 36px; font-size:15px }
+.b .foot .cols{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1.3fr; gap:40px }
+.b .foot svg{ width:160px; color:#fff }
+.b .foot .b p{ margin-top:16px }
+.b .foot h4{ font-family:var(--display); font-weight:700; font-size:11.5px; letter-spacing:.2em;
+             text-transform:uppercase; color:#fff; margin-bottom:18px }
+.b .foot a{ display:block; padding:4px 0 } .b .foot a:hover{ color:#fff }
+.b .foot .base{ display:flex; justify-content:space-between; margin-top:70px; padding-top:26px;
+                border-top:1px solid rgba(255,255,255,.12); font-size:13px }
+
+/* =========================== responsive =========================== */
+@media (max-width:1100px){
+  .b .nav{ gap:22px } .b .btn.hdr{ display:none }
+  .b .cos{ grid-template-columns:1fr 1fr } .b .cos div:nth-child(3){ border-left:0; padding-left:0 }
+  .b .tl{ grid-template-columns:repeat(3,1fr); row-gap:50px } .b .tl::before{ display:none }
+}
+@media (max-width:900px){
+  .b .util .c{ display:none }
+  .b .bar{ height:74px } .b .brand svg{ width:136px }
+  .b .nav{ display:none } .b .burger{ display:flex; margin-left:auto; background:none; border:0; color:var(--ink) }
+  .b .hero{ flex-direction:column; min-height:0 }
+  .b .hero .txt{ width:100%; padding:60px 0 40px }
+  .b .hero h1{ font-size:40px } .b .hero h1 .serif{ font-size:38px }
+  .b .hero .cta{ flex-direction:column; align-items:stretch } .b .hero .cta .btn{ justify-content:center }
+  .b .titles{ flex-wrap:wrap; gap:18px }
+  .b .hero .pic{ position:relative; width:100%; height:420px }
+  .b .issue{ left:20px; bottom:-40px }
+  .b .issue img{ width:110px; height:156px } .b .issue div{ width:170px; padding:16px }
+  .b .figs{ padding-top:110px }
+  .b .figs .row{ grid-template-columns:1fr 1fr; gap:34px 24px }
+  .b .figs b{ font-size:40px }
+  .b .group, .b .time, .b .brands, .b .clients, .b .contact{ padding:80px 0 }
+  .b .cos{ grid-template-columns:1fr } .b .cos div + div{ border-left:0; padding-left:0; border-top:1px solid var(--rule) }
+  .b .tl{ grid-template-columns:1fr; row-gap:0; margin-top:40px }
+  .b .tl li{ padding:0 0 30px 34px } .b .tl li::after{ top:6px }
+  .b .tl::before{ display:block; left:6px; right:auto; top:8px; bottom:30px; width:2px; height:auto }
+  .b .tl p{ margin-top:10px }
+  .b .shelf{ grid-template-columns:1fr; gap:16px } .b .feat{ grid-row:auto }
+  .b .events{ grid-template-columns:1fr } .b .events .pic{ height:300px } .b .events .txt{ padding:60px 20px }
+  .b .contact .grid{ grid-template-columns:1fr; gap:44px }
+  .b .ways{ grid-template-columns:1fr } .b .ways dt{ border-bottom:0; padding-bottom:0 } .b .ways dd{ padding-top:6px }
+  .b .foot .cols{ grid-template-columns:1fr 1fr } .b .foot .base{ flex-direction:column; gap:8px }
+}
+/* phones: the hero clips its overflow, so the issue card sits inside the photo */
+@media (max-width:900px){ .b .issue{ bottom:20px } .b .figs{ padding-top:70px } }

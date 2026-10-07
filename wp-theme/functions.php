@@ -1,0 +1,860 @@
+<?php
+/**
+ * TEG Media theme.
+ *
+ * The designed pages are built from the Heritage mockup by build-wp-theme.js: each one's markup
+ * sits in parts/<page>.html and its details in inc/pages.php. This file serves them, sends the
+ * contact form, forwards the old pages, and wraps WooCommerce and any other WordPress page in the
+ * same header and footer, so the shop and checkout keep working untouched.
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+define( 'TEG_THEME_VERSION', wp_get_theme( get_template() )->get( 'Version' ) );
+
+/* the covers and issue links, kept up to date from Calameo (Appearance > TEG Media issues) */
+require __DIR__ . '/issues.php';
+
+/* ------------------------------------------------------------------------------------------ */
+/* The designed pages                                                                         */
+/* ------------------------------------------------------------------------------------------ */
+
+/** Each designed page's title, description, body class, marked nav item and contact band. */
+function teg_pages() {
+	static $pages = null;
+	if ( null === $pages ) {
+		$pages = require __DIR__ . '/inc/pages.php';
+	}
+	return $pages;
+}
+
+/** The designed page being shown (set by its template), or null on shop and other pages. */
+function teg_current( $key = null ) {
+	static $current = null;
+	if ( null !== $key ) {
+		$current = $key;
+	}
+	return $current;
+}
+
+function teg_page_meta() {
+	$pages = teg_pages();
+	$key   = teg_current();
+	return ( $key && isset( $pages[ $key ] ) ) ? $pages[ $key ] : null;
+}
+
+function teg_is_shop_page() {
+	return function_exists( 'is_woocommerce' ) && ( is_woocommerce() || is_cart() || is_checkout() || is_account_page() );
+}
+
+/** Fills the placeholders the build leaves in the HTML with this site's addresses. */
+function teg_fill( $html ) {
+	$html = teg_cal_fill( $html );
+	$html = preg_replace_callback(
+		'#\{\{assets\}\}/([A-Za-z0-9/._-]+)#',
+		function ( $m ) {
+			return esc_url( teg_asset_url( $m[1] ) );
+		},
+		$html
+	);
+	$html = strtr(
+		$html,
+		array(
+			'{{captcha}}'    => teg_captcha_html(),
+			'{{assets}}'     => esc_url( teg_asset_base() ),
+			'{{theme}}'      => get_template_directory_uri(),
+			'{{shop}}'       => esc_url( home_url( '/product/' ) ),
+			'{{admin-post}}' => esc_url( admin_url( 'admin-post.php' ) ),
+		)
+	);
+	return preg_replace_callback(
+		'/\{\{url:([a-z0-9-]*)\}\}/',
+		function ( $m ) {
+			return esc_url( '' === $m[1] ? home_url( '/' ) : home_url( '/' . $m[1] . '/' ) );
+		},
+		$html
+	);
+}
+
+function teg_part( $name ) {
+	$file = __DIR__ . '/parts/' . $name . '.html';
+	return is_readable( $file ) ? teg_fill( file_get_contents( $file ) ) : '';
+}
+
+/** Renders a designed page: called by front-page.php, page-<slug>.php and 404.php. */
+function teg_designed_page( $key ) {
+	teg_current( $key );
+	get_header();
+	echo teg_part( $key ); // phpcs:ignore WordPress.Security.EscapeOutput -- the theme's own built markup.
+	get_footer();
+}
+
+function teg_header_html() {
+	$meta = teg_page_meta();
+	$on   = $meta ? $meta['on'] : '';
+	$html = file_get_contents( __DIR__ . '/parts/header.html' );
+	$html = preg_replace_callback(
+		'/\{\{on:([a-z0-9-]+)\}\}/',
+		function ( $m ) use ( $on ) {
+			return $m[1] === $on ? ' class="on"' : '';
+		},
+		$html
+	);
+	return teg_fill( $html );
+}
+
+/** The footer, with the red "Let's talk" band except where a page leaves it out, and in the shop. */
+function teg_footer_html() {
+	$meta    = teg_page_meta();
+	$contact = $meta ? $meta['contact'] : ! teg_is_shop_page();
+	return teg_part( $contact ? 'footer' : 'footer-nocontact' );
+}
+
+/** The dark band at the top of shop and other WordPress pages, so the white header reads over it. */
+function teg_band( $title = '', $eyebrow = '' ) {
+	echo '<section class="phero ink wpb' . ( $title ? '' : ' slim' ) . '">';
+	echo '<div class="fronds"><svg viewBox="0 490 595.5 352" preserveAspectRatio="xMidYMax slice"><use href="#fronds"/></svg></div>';
+	echo '<div class="wrap in">';
+	if ( $eyebrow ) {
+		echo '<span class="eyebrow">' . esc_html( $eyebrow ) . '</span>';
+	}
+	if ( $title ) {
+		echo '<h1><span class="sans">' . esc_html( $title ) . '</span></h1>';
+	}
+	echo '</div></section>';
+}
+
+/* ------------------------------------------------------------------------------------------ */
+/* The images                                                                                 */
+/* ------------------------------------------------------------------------------------------ */
+
+/* The photographs and the hero film (18 MB) are too big for the theme zip, so they live in
+   wp-content/uploads/teg-media/assets/. Until they have been copied there (Appearance > TEG Media
+   images), the pages load them from the published design preview, which holds the same files. */
+if ( ! defined( 'TEG_ASSET_SOURCE' ) ) {
+	define( 'TEG_ASSET_SOURCE', 'https://tegmedia-site.mikedavison111.workers.dev/assets' );
+}
+
+/** The list of images: inc/assets.php, generated by the build (path => size in bytes). */
+function teg_assets() {
+	static $assets = null;
+	if ( null === $assets ) {
+		$assets = require __DIR__ . '/inc/assets.php';
+	}
+	return $assets;
+}
+
+function teg_assets_dir() {
+	$up = wp_upload_dir( null, false );
+	return array(
+		'path' => $up['basedir'] . '/teg-media/assets',
+		'url'  => set_url_scheme( $up['baseurl'] . '/teg-media/assets' ),
+	);
+}
+
+/** Where the pages load images from: this site once every image has been copied, else the preview. */
+function teg_asset_base() {
+	$assets = teg_assets();
+	return get_option( 'teg_assets_set' ) === $assets['hash'] ? teg_assets_dir()['url'] : TEG_ASSET_SOURCE;
+}
+
+/**
+ * One image's address. Any image already on this site is always served from here, even while a
+ * newer image set is still being copied, so the preview is only ever used for a file this site
+ * does not have yet. Once Copy images has finished, nothing loads from the preview at all.
+ */
+function teg_asset_url( $file ) {
+	static $dir = null;
+	if ( null === $dir ) {
+		$dir = teg_assets_dir();
+	}
+	$file = ltrim( $file, '/' );
+	if ( get_option( 'teg_assets_set' ) === teg_assets()['hash'] || is_file( $dir['path'] . '/' . $file ) ) {
+		return $dir['url'] . '/' . $file;
+	}
+	return TEG_ASSET_SOURCE . '/' . $file;
+}
+
+/** The images not yet on this site, or not at their full size. */
+function teg_assets_missing() {
+	$dir     = teg_assets_dir()['path'];
+	$missing = array();
+	foreach ( teg_assets()['files'] as $file => $size ) {
+		$local = $dir . '/' . $file;
+		if ( ! is_file( $local ) || filesize( $local ) !== $size ) {
+			$missing[ $file ] = $size;
+		}
+	}
+	return $missing;
+}
+
+/** Copies the next few images from the preview; once none are missing, switches the pages over. */
+function teg_assets_copy_batch( $limit_bytes = 4194304 ) {
+	$dir    = teg_assets_dir()['path'];
+	$failed = array();
+	$moved  = 0;
+	$copied = 0;
+	foreach ( teg_assets_missing() as $file => $size ) {
+		if ( $moved >= $limit_bytes || ! preg_match( '#^[a-z0-9][a-z0-9/._-]*$#i', $file ) || false !== strpos( $file, '..' ) ) {
+			if ( $moved < $limit_bytes ) {
+				$failed[] = $file;
+			}
+			continue;
+		}
+		$response = wp_remote_get( TEG_ASSET_SOURCE . '/' . $file, array( 'timeout' => 60 ) );
+		$body     = is_wp_error( $response ) ? '' : wp_remote_retrieve_body( $response );
+		if ( 200 !== wp_remote_retrieve_response_code( $response ) || strlen( $body ) !== $size ) {
+			$failed[] = $file;
+			continue;
+		}
+		wp_mkdir_p( dirname( $dir . '/' . $file ) );
+		if ( false === file_put_contents( $dir . '/' . $file, $body ) ) {
+			$failed[] = $file;
+			continue;
+		}
+		$moved += $size;
+		++$copied;
+	}
+	$left = count( teg_assets_missing() );
+	if ( 0 === $left ) {
+		update_option( 'teg_assets_set', teg_assets()['hash'] );
+		do_action( 'litespeed_purge_all' );
+	}
+	return array(
+		'copied' => $copied,
+		'left'   => $left,
+		'total'  => count( teg_assets()['files'] ),
+		'failed' => $failed,
+	);
+}
+
+add_action(
+	'wp_ajax_teg_copy_assets',
+	function () {
+		check_ajax_referer( 'teg_copy_assets' );
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( 'Only an administrator can copy the images.', 403 );
+		}
+		wp_send_json_success( teg_assets_copy_batch() );
+	}
+);
+
+add_action(
+	'admin_menu',
+	function () {
+		add_theme_page( 'TEG Media images', 'TEG Media images', 'manage_options', 'teg-media-images', 'teg_assets_screen' );
+	}
+);
+
+function teg_assets_screen() {
+	$total   = count( teg_assets()['files'] );
+	$missing = count( teg_assets_missing() );
+	$local   = get_option( 'teg_assets_set' ) === teg_assets()['hash'];
+	echo '<div class="wrap"><h1>TEG Media images</h1>';
+	echo '<p>The site&rsquo;s photographs and the homepage film are kept in <code>wp-content/uploads/teg-media/</code>, because they are too big to travel inside the theme.</p>';
+	if ( $local ) {
+		printf( '<p id="teg-state"><strong>All %d images are on this site</strong>, and the pages load them from here.</p>', (int) $total );
+	} else {
+		printf( '<p id="teg-state">%d of %d images are on this site. Until all of them are, the pages load the images from the design preview.</p>', (int) ( $total - $missing ), (int) $total );
+		printf( '<p><button class="button button-primary" id="teg-copy" data-nonce="%s">Copy images to this site</button></p><p id="teg-progress"></p>', esc_attr( wp_create_nonce( 'teg_copy_assets' ) ) );
+		?>
+		<script>
+		(function () {
+			var btn = document.getElementById('teg-copy'), out = document.getElementById('teg-progress'), state = document.getElementById('teg-state');
+			btn.addEventListener('click', function () {
+				btn.disabled = true;
+				var stalls = 0;
+				(function next(lastLeft) {
+					var body = new FormData();
+					body.append('action', 'teg_copy_assets');
+					body.append('_ajax_nonce', btn.dataset.nonce);
+					fetch(ajaxurl, { method: 'POST', body: body, credentials: 'same-origin' }).then(function (r) { return r.json(); }).then(function (r) {
+						if (!r.success) { out.textContent = 'Stopped: ' + r.data; btn.disabled = false; return; }
+						var d = r.data;
+						out.textContent = (d.total - d.left) + ' of ' + d.total + ' copied' + (d.failed.length ? ' (retrying ' + d.failed.length + ')' : '') + '...';
+						if (d.left === 0) { state.innerHTML = '<strong>All ' + d.total + ' images are on this site</strong>, and the pages load them from here.'; out.textContent = 'Done.'; btn.remove(); return; }
+						stalls = d.left === lastLeft ? stalls + 1 : 0;
+						if (stalls >= 3) { out.textContent = 'These could not be copied: ' + d.failed.join(', ') + '. The pages keep loading images from the preview. Try again later.'; btn.disabled = false; return; }
+						next(d.left);
+					}).catch(function () { out.textContent = 'The server stopped responding. Click the button again to carry on.'; btn.disabled = false; });
+				})(-1);
+			});
+		})();
+		</script>
+		<?php
+	}
+	echo '</div>';
+}
+
+add_action(
+	'admin_notices',
+	function () {
+		if ( ! current_user_can( 'manage_options' ) || get_option( 'teg_assets_set' ) === teg_assets()['hash'] ) {
+			return;
+		}
+		$screen = get_current_screen();
+		if ( $screen && 'appearance_page_teg-media-images' === $screen->id ) {
+			return;
+		}
+		printf( '<div class="notice notice-info"><p><strong>TEG Media theme:</strong> the photographs still load from the design preview. <a href="%s">Copy them to this site</a> (one click).</p></div>', esc_url( admin_url( 'themes.php?page=teg-media-images' ) ) );
+	}
+);
+
+/* ------------------------------------------------------------------------------------------ */
+/* Setup, head and assets                                                                     */
+/* ------------------------------------------------------------------------------------------ */
+
+add_action(
+	'after_setup_theme',
+	function () {
+		add_theme_support( 'title-tag' );
+		add_theme_support( 'post-thumbnails' );
+		add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script' ) );
+		add_theme_support( 'woocommerce' );
+		add_theme_support( 'wc-product-gallery-zoom' );
+		add_theme_support( 'wc-product-gallery-lightbox' );
+		add_theme_support( 'wc-product-gallery-slider' );
+	}
+);
+
+add_filter(
+	'pre_get_document_title',
+	function ( $title ) {
+		$meta = teg_page_meta();
+		return $meta ? $meta['title'] : $title;
+	}
+);
+
+add_filter(
+	'document_title_separator',
+	function () {
+		return '|';
+	}
+);
+
+/* Designed pages carry only the mockup's body classes, so nothing else WordPress or a plugin adds
+   can restyle them. Elsewhere the WordPress classes stay (WooCommerce needs them), except
+   "archive", which the mockup uses for the Read page's archive section. */
+add_filter(
+	'body_class',
+	function ( $classes ) {
+		$meta = teg_page_meta();
+		if ( $meta ) {
+			$keep = array( 'a', $meta['body'] );
+			if ( is_admin_bar_showing() ) {
+				$keep[] = 'admin-bar';
+			}
+			return $keep;
+		}
+		$classes   = array_diff( $classes, array( 'archive' ) );
+		$classes[] = 'a';
+		$classes[] = teg_is_shop_page() ? 'pg-shop' : 'pg-wp';
+		return array_values( $classes );
+	},
+	PHP_INT_MAX
+);
+
+add_action(
+	'wp_head',
+	function () {
+		$uri = get_template_directory_uri();
+		echo "<script>document.documentElement.className+=' js'</script>\n";
+		echo '<meta name="theme-color" content="#0B0B0D">' . "\n";
+		if ( ! has_site_icon() ) {
+			printf( '<link rel="icon" href="%1$s/favicon.svg" type="image/svg+xml"><link rel="icon" href="%1$s/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="%1$s/apple-touch-icon.png">' . "\n", esc_url( $uri ) );
+		}
+		$meta = teg_page_meta();
+		if ( ! $meta || '' === $meta['description'] || defined( 'WPSEO_VERSION' ) ) {
+			return;
+		}
+		$url = 'front' === teg_current() ? home_url( '/' ) : get_permalink( get_queried_object_id() );
+		printf( '<meta name="description" content="%s">' . "\n", esc_attr( $meta['description'] ) );
+		echo '<meta property="og:type" content="website"><meta property="og:site_name" content="TEG Media">' . "\n";
+		printf( '<meta property="og:title" content="%s"><meta property="og:description" content="%s">' . "\n", esc_attr( $meta['title'] ), esc_attr( $meta['description'] ) );
+		printf( '<meta property="og:image" content="%s"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">' . "\n", esc_url( teg_asset_url( 'og.jpg' ) ) );
+		if ( '404' !== teg_current() && $url ) {
+			printf( '<meta property="og:url" content="%s">', esc_url( $url ) );
+		}
+		echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
+	},
+	1
+);
+
+add_action(
+	'wp_enqueue_scripts',
+	function () {
+		$uri = get_template_directory_uri();
+		$v   = TEG_THEME_VERSION;
+		wp_enqueue_style( 'teg-fonts', 'https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;700&family=Libre+Baskerville:ital,wght@0,400;1,400&family=Montserrat:wght@500;600;700;800&display=swap', array(), null );
+		$after = array( 'teg-fonts' );
+		foreach ( array( 'base', 'a', 'pages', 'polish', 'work', 'motion', 'wp' ) as $sheet ) {
+			wp_enqueue_style( 'teg-' . $sheet, $uri . '/css/' . $sheet . '.css', $after, $v );
+			$after = array( 'teg-' . $sheet );
+		}
+		$defer = array(
+			'strategy'  => 'defer',
+			'in_footer' => false,
+		);
+		wp_enqueue_script( 'teg-motion', $uri . '/js/motion.js', array(), $v, $defer );
+		wp_enqueue_script( 'teg-yt-loop', $uri . '/js/yt-loop.js', array(), $v, $defer );
+		wp_enqueue_script( 'teg-offers', $uri . '/js/offers.js', array(), $v, $defer );
+		wp_enqueue_script( 'teg-cats', $uri . '/js/cats.js', array(), $v, $defer );
+	}
+);
+
+add_filter(
+	'wp_resource_hints',
+	function ( $urls, $type ) {
+		if ( 'preconnect' === $type ) {
+			$urls[] = 'https://fonts.googleapis.com';
+			$urls[] = array(
+				'href'        => 'https://fonts.gstatic.com',
+				'crossorigin' => 'anonymous',
+			);
+		}
+		return $urls;
+	},
+	10,
+	2
+);
+
+/* On the designed pages, only the theme's own styles and scripts load (and the admin bar's, for
+   anyone logged in). Plugins built for the old Elementor pages would otherwise restyle them. */
+function teg_trim_assets() {
+	if ( ! teg_current() ) {
+		return;
+	}
+	foreach ( wp_styles()->queue as $handle ) {
+		if ( 0 !== strpos( $handle, 'teg-' ) && ! in_array( $handle, array( 'admin-bar', 'dashicons' ), true ) ) {
+			wp_dequeue_style( $handle );
+		}
+	}
+	/* jQuery stays: plugins print small inline scripts on every page that call it (ShopLentor's
+	   sales notification is one), and without it they throw "jQuery is not defined" */
+	foreach ( wp_scripts()->queue as $handle ) {
+		if ( 0 !== strpos( $handle, 'teg-' ) && ! in_array( $handle, array( 'admin-bar', 'jquery', 'jquery-core', 'jquery-migrate' ), true ) ) {
+			wp_dequeue_script( $handle );
+		}
+	}
+	if ( ! wp_script_is( 'jquery', 'enqueued' ) && ! wp_script_is( 'jquery', 'done' ) ) {
+		wp_enqueue_script( 'jquery' );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'teg_trim_assets', PHP_INT_MAX );
+add_action( 'wp_print_styles', 'teg_trim_assets', PHP_INT_MAX );
+add_action( 'wp_print_footer_scripts', 'teg_trim_assets', 1 );
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+remove_action( 'wp_print_styles', 'print_emoji_styles' );
+
+/* Ultimate Addons for Elementor can replace any theme's header and footer with Elementor-built
+   ones from the old site. This theme has its own, so those stay switched off everywhere. */
+foreach ( array( 'hfe_header_enabled', 'hfe_footer_enabled', 'hfe_before_footer_enabled', 'enable_hfe_render_header', 'enable_hfe_render_footer', 'enable_hfe_render_before_footer' ) as $teg_hfe_filter ) {
+	add_filter( $teg_hfe_filter, '__return_false', PHP_INT_MAX );
+}
+
+/* ------------------------------------------------------------------------------------------ */
+/* Product pages                                                                              */
+/* ------------------------------------------------------------------------------------------ */
+
+/* Product pages use this theme's layout. ShopLentor, kept from the old site, swaps in its own
+   Elementor template at priority 999; this runs after it, for product pages only. The cart and
+   checkout are left exactly as they are. */
+add_filter(
+	'template_include',
+	function ( $template ) {
+		if ( function_exists( 'is_product' ) && is_product() ) {
+			$ours = locate_template( 'woocommerce.php' );
+			if ( $ours ) {
+				return $ours;
+			}
+		}
+		return $template;
+	},
+	1000
+);
+
+/**
+ * A product page: the dark band with the product and its price, then the order form (with any
+ * fields Advanced Product Fields adds) in the site's own form styling. The TEG Card gets the card
+ * itself, its own headline and a short summary of what members save beside the form.
+ */
+function teg_product_page( $product ) {
+	if ( ! $product ) {
+		return;
+	}
+	$is_card = 'teg-card-application' === $product->get_slug();
+	$uri     = get_template_directory_uri();
+
+	echo '<section class="memhero prodhero' . ( $is_card ? ' is-card' : '' ) . '">';
+	echo '<div class="fronds"><svg viewBox="0 490 595.5 352" preserveAspectRatio="xMidYMax slice"><use href="#fronds"/></svg></div>';
+	echo '<div class="wrap memgrid"><div class="memtxt">';
+	echo '<span class="eyebrow">' . ( $is_card ? 'Membership' : 'Shop' ) . '</span>';
+	if ( $is_card ) {
+		echo '<h1><span class="sans">The TEG Card.</span><span class="serif">Apply or renew.</span></h1>';
+	} else {
+		echo '<h1><span class="sans">' . esc_html( $product->get_name() ) . '</span></h1>';
+	}
+	echo '<div class="prodprice">' . wp_kses_post( $product->get_price_html() ) . ( $is_card ? ' <small>a year</small>' : '' ) . '</div>';
+	$intro = $is_card
+		? 'One card covers you and your partner. Fill in your details below and choose how to collect it.'
+		: wp_strip_all_tags( $product->get_short_description() ? $product->get_short_description() : $product->get_description() );
+	if ( '' !== trim( $intro ) ) {
+		echo '<p>' . esc_html( wp_trim_words( $intro, 55 ) ) . '</p>';
+	}
+	echo '<div class="cta"><a class="btn solid" href="#order">' . ( $is_card ? 'Apply now' : 'Order now' ) . ' <span class="arr">&darr;</span></a></div>';
+	echo '</div>';
+	if ( $is_card ) {
+		echo '<div class="memcard"><span class="tilt"><img src="' . esc_url( $uri . '/assets/teg-card.png' ) . '" alt="The TEG Card" width="900" height="568"><i class="shine"></i></span></div>';
+	} else {
+		echo '<div class="prodimg">' . wp_kses_post( $product->get_image( 'large' ) ) . '</div>';
+	}
+	echo '</div></section>';
+
+	echo '<section class="prodbuy" id="order"><div class="wrap prodbuyin' . ( $is_card ? '' : ' solo' ) . '">';
+	echo '<div class="prodform"><h2>' . ( $is_card ? 'Your details' : 'Your order' ) . '</h2>';
+	do_action( 'woocommerce_before_single_product' );
+	woocommerce_template_single_add_to_cart();
+	echo '</div>';
+	if ( $is_card ) {
+		echo '<aside class="prodside"><h3>What members save</h3><ul>'
+			. '<li><b>RM15</b><span>off each at every Mingle, and member prices at Mingle Plus</span></li>'
+			. '<li><b>RM25</b><span>off each, at every Wine Dinner</span></li>'
+			. '<li><b>Member prices</b><span>at WhiskyPLUS</span></li>'
+			. '<li class="soon"><b>Coming soon</b><span>with the new TEG Card: offers at partner restaurants and bars</span></li>'
+			. '</ul><p>Collect your card at a Mingle or Wine Dinner, at our office in Bangsar, or have it posted for RM5.</p>'
+			. '<p class="links"><a href="' . esc_url( home_url( '/membership/' ) ) . '">About membership</a><a href="' . esc_url( home_url( '/contact/?about=subscriptions#message' ) ) . '">Ask us a question</a></p></aside>';
+	}
+	echo '</div></section>';
+
+	if ( function_exists( 'WC' ) && isset( WC()->structured_data ) ) {
+		WC()->structured_data->generate_product_data( $product );
+	}
+}
+
+/* ------------------------------------------------------------------------------------------ */
+/* The contact form                                                                           */
+/* ------------------------------------------------------------------------------------------ */
+
+/* Every enquiry is saved in WordPress first (Enquiries, in the admin menu), then emailed to the
+   site's admin address, or another set with the teg_contact_to filter (info@tegmedia.my at launch).
+   So a lead is never lost if the email fails. Spam protection, in layers:
+   - a hidden field people never see and bots fill in;
+   - a timestamp the page sets when it opens: a form sent within 3 seconds is a bot;
+   - at most 5 messages an hour from one address;
+   - Cloudflare Turnstile, a free CAPTCHA that is usually invisible, switched on by adding
+     TEG_TURNSTILE_SITE_KEY and TEG_TURNSTILE_SECRET to wp-config.php (keys from dash.cloudflare.com). */
+add_action( 'admin_post_nopriv_teg_contact', 'teg_contact_send' );
+add_action( 'admin_post_teg_contact', 'teg_contact_send' );
+
+add_action(
+	'init',
+	function () {
+		register_post_type(
+			'teg_enquiry',
+			array(
+				'labels'          => array(
+					'name'          => 'Enquiries',
+					'singular_name' => 'Enquiry',
+					'menu_name'     => 'Enquiries',
+					'all_items'     => 'All enquiries',
+					'edit_item'     => 'Enquiry',
+				),
+				'public'          => false,
+				'show_ui'         => true,
+				'show_in_menu'    => true,
+				'menu_icon'       => 'dashicons-email-alt',
+				'menu_position'   => 26,
+				'supports'        => array( 'title', 'editor' ),
+				'capability_type' => 'post',
+				'capabilities'    => array( 'create_posts' => 'do_not_allow' ),
+				'map_meta_cap'    => true,
+			)
+		);
+	}
+);
+
+function teg_turnstile_on() {
+	return defined( 'TEG_TURNSTILE_SITE_KEY' ) && defined( 'TEG_TURNSTILE_SECRET' ) && TEG_TURNSTILE_SITE_KEY && TEG_TURNSTILE_SECRET;
+}
+
+/** What fills {{captcha}} on the contact form: the Turnstile widget once its keys are set. */
+function teg_captcha_html() {
+	if ( ! teg_turnstile_on() ) {
+		return '';
+	}
+	return '<div class="cf-turnstile" data-sitekey="' . esc_attr( TEG_TURNSTILE_SITE_KEY ) . '" data-theme="light"></div>'
+		. '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>';
+}
+
+function teg_client_ip() {
+	return isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+}
+
+function teg_contact_send() {
+	$back  = home_url( '/contact/' );
+	$field = function ( $key, $multiline = false ) {
+		$value = isset( $_POST[ $key ] ) ? wp_unslash( $_POST[ $key ] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification -- a public form on cached pages; see the checks below.
+		return $multiline ? sanitize_textarea_field( $value ) : sanitize_text_field( $value );
+	};
+	$fail = function () use ( $back ) {
+		wp_safe_redirect( add_query_arg( 'sent', '0', $back ) . '#message' );
+		exit;
+	};
+
+	/* the hidden field: bots are told it worked and nothing happens */
+	if ( '' !== $field( 'website' ) ) {
+		wp_safe_redirect( add_query_arg( 'sent', '1', $back ) . '#message' );
+		exit;
+	}
+	/* sent within 3 seconds of the page opening, or with no timestamp at all */
+	$opened = (int) ( (int) $field( 't' ) / 1000 );
+	if ( $opened <= 0 || time() - $opened < 3 ) {
+		$fail();
+	}
+	/* at most 5 an hour from one address */
+	$key   = 'teg_cf_' . md5( teg_client_ip() );
+	$count = (int) get_transient( $key );
+	if ( $count >= 5 ) {
+		$fail();
+	}
+	set_transient( $key, $count + 1, HOUR_IN_SECONDS );
+	/* Turnstile, when switched on */
+	if ( teg_turnstile_on() ) {
+		$check = wp_remote_post(
+			'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+			array(
+				'timeout' => 10,
+				'body'    => array(
+					'secret'   => TEG_TURNSTILE_SECRET,
+					'response' => $field( 'cf-turnstile-response' ),
+					'remoteip' => teg_client_ip(),
+				),
+			)
+		);
+		$ok = ! is_wp_error( $check ) && ! empty( json_decode( wp_remote_retrieve_body( $check ), true )['success'] );
+		if ( ! $ok ) {
+			$fail();
+		}
+	}
+
+	$topics  = array(
+		'advertising'   => 'Advertising',
+		'event'         => 'An event for my brand',
+		'mm2h'          => 'MM2H',
+		'subscriptions' => 'Subscriptions',
+		'other'         => 'Something else',
+	);
+	$about   = $field( 'about' );
+	$topic   = isset( $topics[ $about ] ) ? $topics[ $about ] : 'Something else';
+	$name    = trim( str_replace( array( '<', '>', '"' ), '', $field( 'name' ) ) );
+	$email   = sanitize_email( $field( 'email' ) );
+	$message = $field( 'message', true );
+	$sent    = false;
+
+	if ( '' !== $name && is_email( $email ) && '' !== $message ) {
+		$body = implode(
+			"\n",
+			array(
+				'Name: ' . $name,
+				'Company: ' . $field( 'company' ),
+				'Email: ' . $email,
+				'Phone: ' . $field( 'phone' ),
+				'Interested in: ' . $topic,
+				'',
+				$message,
+				'',
+				'Sent from the contact form at ' . $back,
+			)
+		);
+		/* saved first, so the enquiry is kept even if the email does not go */
+		$saved = wp_insert_post(
+			array(
+				'post_type'    => 'teg_enquiry',
+				'post_status'  => 'private',
+				'post_title'   => $topic . ': ' . $name . ' (' . $email . ')',
+				'post_content' => $body,
+			)
+		);
+		$sent  = wp_mail(
+			apply_filters( 'teg_contact_to', get_option( 'admin_email' ) ),
+			'Website enquiry: ' . $topic . ' (' . $name . ')',
+			$body,
+			array( 'Reply-To: ' . $name . ' <' . $email . '>' )
+		);
+		if ( $saved && ! is_wp_error( $saved ) ) {
+			update_post_meta( $saved, '_teg_emailed', $sent ? 'yes' : 'no' );
+			/* the visitor is told it went through: the enquiry is on file even if the email failed */
+			$sent = true;
+		}
+	}
+
+	wp_safe_redirect( add_query_arg( 'sent', $sent ? '1' : '0', $back ) . '#message' );
+	exit;
+}
+
+/* ------------------------------------------------------------------------------------------ */
+/* The old pages, forwarded to their place on the new site                                    */
+/* ------------------------------------------------------------------------------------------ */
+
+/* Temporary (302) while the site is being built, so browsers do not remember them; switch to
+   permanent (301) with the teg_redirect_status filter at launch. The shop, checkout and
+   subscription pages are left alone. */
+add_filter(
+	'allowed_redirect_hosts',
+	function ( $hosts ) {
+		$hosts[] = 'mm2h.com';
+		return $hosts;
+	}
+);
+
+add_action(
+	'template_redirect',
+	function () {
+		if ( ! is_page() || is_front_page() ) {
+			return;
+		}
+		$map  = array(
+			'whiskyplus'              => 'events/#whiskyplus',
+			'the-mingle'              => 'events/#monthly',
+			'the-wine-dinner'         => 'events/#monthly',
+			'expatgo'                 => 'portfolio/#expatgo',
+			'the-expat-magazine'      => 'the-expat/',
+			'read-online'             => 'read/',
+			'the-expat-welcome-guide' => 'portfolio/#welcome',
+			'expat-education-guide'   => 'portfolio/#education',
+			'teg-card'                => 'membership/',
+			'mm2h'                    => 'https://mm2h.com/',
+			'mm2h-visa-agency'        => 'https://mm2h.com/',
+		);
+		$slug = get_post_field( 'post_name', get_queried_object_id() );
+		if ( ! isset( $map[ $slug ] ) ) {
+			return;
+		}
+		$to = 0 === strpos( $map[ $slug ], 'https://' ) ? $map[ $slug ] : home_url( '/' . $map[ $slug ] );
+		wp_safe_redirect( $to, apply_filters( 'teg_redirect_status', 302 ), 'TEG Media theme' );
+		exit;
+	}
+);
+
+/* ------------------------------------------------------------------------------------------ */
+/* Enquiries whose email did not go out                                                       */
+/* ------------------------------------------------------------------------------------------ */
+
+add_action(
+	'admin_notices',
+	function () {
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			return;
+		}
+		$failed = get_posts(
+			array(
+				'post_type'      => 'teg_enquiry',
+				'post_status'    => 'private',
+				'posts_per_page' => 20,
+				'fields'         => 'ids',
+				'meta_key'       => '_teg_emailed', // phpcs:ignore WordPress.DB.SlowDBQuery
+				'meta_value'     => 'no', // phpcs:ignore WordPress.DB.SlowDBQuery
+			)
+		);
+		if ( $failed ) {
+			printf(
+				'<div class="notice notice-warning"><p><strong>TEG Media:</strong> %d website %s could not be emailed and %s waiting in <a href="%s">Enquiries</a>. Check the site\'s email settings.</p></div>',
+				count( $failed ),
+				1 === count( $failed ) ? 'enquiry' : 'enquiries',
+				1 === count( $failed ) ? 'is' : 'are',
+				esc_url( admin_url( 'edit.php?post_type=teg_enquiry' ) )
+			);
+		}
+	}
+);
+add_filter(
+	'manage_teg_enquiry_posts_columns',
+	function ( $cols ) {
+		$cols['teg_emailed'] = 'Emailed';
+		return $cols;
+	}
+);
+add_action(
+	'manage_teg_enquiry_posts_custom_column',
+	function ( $col, $id ) {
+		if ( 'teg_emailed' === $col ) {
+			echo 'no' === get_post_meta( $id, '_teg_emailed', true ) ? '<strong style="color:#b32d2e">No</strong>' : 'Yes';
+		}
+	},
+	10,
+	2
+);
+
+/* ------------------------------------------------------------------------------------------ */
+/* Browser security headers                                                                   */
+/* ------------------------------------------------------------------------------------------ */
+
+/* Sent with every public page. The content policy is the safe part of CSP: no framing by other
+   sites, no plugins, no changing the base address, and everything upgraded to https. A full
+   script allow-list would break the payment page and the plugins, so it is left to the server.
+   Turn any of this off with the teg_security_headers filter. */
+add_action(
+	'send_headers',
+	function () {
+		if ( is_admin() || headers_sent() ) {
+			return;
+		}
+		$h = array(
+			'X-Content-Type-Options'  => 'nosniff',
+			'X-Frame-Options'         => 'SAMEORIGIN',
+			'Referrer-Policy'         => 'strict-origin-when-cross-origin',
+			'Permissions-Policy'      => 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
+			'Content-Security-Policy' => "frame-ancestors 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests",
+		);
+		if ( is_ssl() ) {
+			$h['Strict-Transport-Security'] = 'max-age=31536000';
+		}
+		foreach ( apply_filters( 'teg_security_headers', $h ) as $name => $value ) {
+			header( $name . ': ' . $value );
+		}
+	}
+);
+
+/* ------------------------------------------------------------------------------------------ */
+/* The privacy notice                                                                         */
+/* ------------------------------------------------------------------------------------------ */
+
+/* /privacy/ works without anyone creating a page: if no page has that address, the theme
+   serves its own. WordPress's Privacy Policy setting points at it as well. */
+add_action(
+	'template_redirect',
+	function () {
+		if ( ! is_404() ) {
+			return;
+		}
+		$path = trim( (string) wp_parse_url( isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '', PHP_URL_PATH ), '/' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+		$home = trim( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ), '/' );
+		if ( '' !== $home && 0 === strpos( $path, $home ) ) {
+			$path = trim( substr( $path, strlen( $home ) ), '/' );
+		}
+		if ( 'privacy' === $path ) {
+			status_header( 200 );
+			global $wp_query;
+			$wp_query->is_404 = false;
+			teg_designed_page( 'privacy' );
+			exit;
+		}
+	},
+	1
+);
+add_filter(
+	'privacy_policy_url',
+	function ( $url ) {
+		return $url ? $url : home_url( '/privacy/' );
+	}
+);
+
+/* the TEG Card form collects personal details, so it says where they go */
+add_action(
+	'woocommerce_after_add_to_cart_form',
+	function () {
+		if ( teg_current() === null && function_exists( 'is_product' ) && is_product() ) {
+			printf( '<p class="pnote">We use your details only for your order and membership. See our <a href="%s">privacy notice</a>.</p>', esc_url( home_url( '/privacy/' ) ) );
+		}
+	}
+);

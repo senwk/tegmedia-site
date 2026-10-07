@@ -1,0 +1,192 @@
+{
+ "bmw": {
+  "name": "BMW Malaysia",
+  "source": "Simple Icons",
+  "licence": "CC0 (trademark of its owner)"
+ },
+ "sony": {
+  "name": "Sony Malaysia",
+  "source": "Simple Icons",
+  "licence": "CC0 (trademark of its owner)"
+ },
+ "hsbc": {
+  "name": "HSBC",
+  "source": "Simple Icons",
+  "licence": "CC0 (trademark of its owner)"
+ },
+ "emirates": {
+  "name": "Emirates",
+  "source": "Simple Icons",
+  "licence": "CC0 (trademark of its owner)"
+ },
+ "airasia": {
+  "name": "AirAsia",
+  "source": "Simple Icons",
+  "licence": "CC0 (trademark of its owner)"
+ },
+ "grab": {
+  "name": "Grab",
+  "source": "Simple Icons",
+  "licence": "CC0 (trademark of its owner)"
+ },
+ "volvo": {
+  "name": "Volvo Car Malaysia",
+  "source": "Simple Icons",
+  "licence": "CC0 (trademark of its owner)"
+ },
+ "qatarairways": {
+  "name": "Qatar Airways",
+  "source": "Simple Icons",
+  "licence": "CC0 (trademark of its owner)"
+ },
+ "tesco": {
+  "name": "Tesco Malaysia",
+  "source": "Simple Icons",
+  "licence": "CC0 (trademark of its owner)"
+ },
+ "foodpanda": {
+  "name": "foodpanda",
+  "source": "Simple Icons",
+  "licence": "CC0 (trademark of its owner)"
+ },
+ "hilton": {
+  "name": "Hilton Kuala Lumpur",
+  "source": "Simple Icons",
+  "licence": "CC0 (trademark of its owner)"
+ },
+ "maserati": {
+  "name": "Maserati",
+  "source": "Simple Icons",
+  "licence": "CC0 (trademark of its owner)"
+ },
+ "airfrance": {
+  "name": "Air France",
+  "source": "Simple Icons",
+  "licence": "CC0 (trademark of its owner)"
+ },
+ "turkishairlines": {
+  "name": "Turkish Airlines",
+  "source": "Simple Icons",
+  "licence": "CC0 (trademark of its owner)"
+ },
+ "klm": {
+  "name": "KLM Royal Dutch Airlines",
+  "source": "Simple Icons",
+  "licence": "CC0 (trademark of its owner)"
+ },
+ "marriott": {
+  "name": "Penang Marriott Hotel",
+  "source": "Simple Icons",
+  "licence": "CC0 (trademark of its owner)"
+ },
+ "shopify": {
+  "name": "Shopify",
+  "source": "Simple Icons",
+  "licence": "CC0 (trademark of its owner)"
+ },
+ "udemy": {
+  "name": "Udemy",
+  "source": "Simple Icons",
+  "licence": "CC0 (trademark of its owner)"
+ },
+ "mercedes-benz": {
+  "name": "Mercedes-Benz",
+  "source": "Wikimedia Commons: Mercedes-Benz Logo 2010.svg",
+  "licence": "Public domain"
+ },
+ "gucci": {
+  "name": "Gucci",
+  "source": "Wikimedia Commons: Gucci Logo.svg",
+  "licence": "Public domain"
+ },
+ "montblanc": {
+  "name": "Montblanc",
+  "source": "Wikimedia Commons: Montblanc logo.svg",
+  "licence": "Public domain"
+ },
+ "dyson": {
+  "name": "Dyson",
+  "source": "Wikimedia Commons: Dyson logo.svg",
+  "licence": "Public domain"
+ },
+ "mandarin-oriental": {
+  "name": "Mandarin Oriental Kuala Lumpur",
+  "source": "Wikimedia Commons: Mandarin Oriental Hotel Group logo.svg",
+  "licence": "Public domain"
+ },
+ "cathay-pacific": {
+  "name": "Cathay Pacific",
+  "source": "Wikimedia Commons: Cathay Pacific Ltd. logo.svg",
+  "licence": "Public domain"
+ },
+ "cimb": {
+  "name": "CIMB",
+  "source": "Wikimedia Commons: CIMB Group Logo.svg",
+  "licence": "Public domain"
+ },
+ "heineken": {
+  "name": "Heineken Malaysia",
+  "source": "Wikimedia Commons: Heineken logo.svg",
+  "licence": "Public domain"
+ },
+ "philips": {
+  "name": "Philips",
+  "source": "Wikimedia Commons: Philips logo new.svg",
+  "licence": "Public domain"
+ },
+ "st-regis": {
+  "name": "The St. Regis Kuala Lumpur",
+  "source": "Wikimedia Commons: St. Regis Hotels & Resorts logo.svg",
+  "licence": "Public domain"
+ },
+ "monash": {
+  "name": "Monash University Malaysia",
+  "source": "Wikimedia Commons: Monash University logo.svg",
+  "licence": "Public domain"
+ },
+ "lazada": {
+  "name": "Lazada Malaysia",
+  "source": "Wikimedia Commons: Lazada (2019).svg",
+  "licence": "Public domain"
+ },
+ "hsbc-wm": {
+  "name": "HSBC",
+  "source": "Wikimedia Commons: HSBC logo (2018).svg",
+  "licence": "Public domain"
+ },
+ "emirates-wm": {
+  "name": "Emirates",
+  "source": "Wikimedia Commons: Emirates logo.svg",
+  "licence": "Public domain"
+ },
+ "qatarairways-wm": {
+  "name": "Qatar Airways",
+  "source": "Wikimedia Commons: Qatar Airways logo.svg",
+  "licence": "Public domain"
+ },
+ "turkishairlines-wm": {
+  "name": "Turkish Airlines",
+  "source": "Wikimedia Commons: Turkish Airlines logo 2019.svg",
+  "licence": "Public domain"
+ },
+ "airfrance-wm": {
+  "name": "Air France",
+  "source": "Wikimedia Commons: Air France Logo.svg",
+  "licence": "Public domain"
+ },
+ "marriott-wm": {
+  "name": "Penang Marriott Hotel",
+  "source": "Wikimedia Commons: Marriott Logo.svg",
+  "licence": "Public domain"
+ },
+ "klm-wm": {
+  "name": "KLM Royal Dutch Airlines",
+  "source": "Wikimedia Commons: KLM logo.svg",
+  "licence": "Public domain"
+ },
+ "maserati-wm": {
+  "name": "Maserati",
+  "source": "Wikimedia Commons: Maserati logo 2.svg",
+  "licence": "Public domain"
+ }
+}

@@ -1,0 +1,1112 @@
+/* ===========================================================================
+   OUR WORK and EVENTS, third pass (Mike, 30 Sep 2026: "a bit plain").
+   Each part of the group opens with a full-width photograph, its number and
+   its figures; the titles under it are shown as objects (covers fanned, the
+   site in a browser, the films as stills) rather than as rows of text.
+   Loads after polish.css.
+   =========================================================================== */
+
+:root{ --red-lt:#F0445A }   /* the house red, lifted for small type on black (5:1) */
+
+/* ---------- Our work: the hero is the four parts, as on the homepage ---------- */
+.whero{ background:var(--black); color:#fff; padding:190px 0 90px; position:relative; overflow:hidden }
+.whero .whead{ position:relative; margin-bottom:56px }
+.whero .eyebrow{ color:#fff; opacity:.75 }
+.whero h1{ margin-top:20px; line-height:1.02 }
+.whero h1 .sans{ display:block; font-family:var(--display); font-weight:800; font-size:72px; letter-spacing:-.025em }
+.whero h1 .serif{ display:block; font-size:66px; margin-top:4px }
+.whero p{ max-width:600px; margin-top:24px; font-size:19px; line-height:1.6; color:rgba(255,255,255,.8) }
+.js .whero .whead > *{ animation:rise 1s cubic-bezier(.2,.7,.2,1) both }
+.js .whero .whead > :nth-child(2){ animation-delay:.15s }
+.js .whero .whead > :nth-child(3){ animation-delay:.3s }
+.cols4.short{ height:420px; margin-top:0 }
+.cols4.short .cap b{ font-size:38px }
+.cols4.short .col .scroll img{ animation-name:browse-s }
+@keyframes browse-s{ 0%, 6%{ transform:translateY(0) } 94%, 100%{ transform:translateY(calc(-100% + 420px)) } }
+
+/* ---------- the chapter openers ---------- */
+.opener{ position:relative; min-height:640px; display:flex; align-items:flex-end; color:#fff; overflow:hidden;
+         background:var(--black); padding:150px 0 70px; scroll-margin-top:120px }
+.opener .bgm{ position:absolute; inset:0; overflow:hidden }
+.opener .bgm > img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+                    transform-origin:50% 60%; animation:drift-s 40s ease-in-out infinite alternate }
+.opener .bgm::after{ content:""; position:absolute; inset:0; z-index:1;
+  background:linear-gradient(90deg,rgba(5,6,10,.9) 0%,rgba(5,6,10,.62) 45%,rgba(5,6,10,.25) 100%),
+             linear-gradient(to top,rgba(5,6,10,.85) 0%,rgba(5,6,10,0) 55%) }
+.opener .bgm .yt{ z-index:0 }
+.opener .wrap{ position:relative; z-index:2; width:100% }
+.opener .n{ font-family:var(--display); font-weight:700; font-size:13px; letter-spacing:.24em }
+.opener .n::after{ content:""; display:inline-block; width:44px; height:1px; background:var(--red);
+                   vertical-align:middle; margin-left:14px }
+.opener h2{ font-family:var(--display); font-weight:800; font-size:152px; letter-spacing:-.045em; line-height:.9;
+            margin-top:22px; margin-left:-6px }
+.opener p{ max-width:540px; margin-top:22px; font-size:20px; line-height:1.55; color:rgba(255,255,255,.86) }
+.opener .stats{ list-style:none; margin:54px 0 0; padding:26px 0 0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+                column-gap:64px; max-width:980px; border-top:1px solid rgba(255,255,255,.22) }
+.opener .stats li{ position:relative }
+.opener .stats li + li::before{ content:""; position:absolute; left:-32px; top:4px; bottom:4px; width:1px; background:rgba(255,255,255,.16) }
+.opener .stats b{ display:block; font-family:var(--display); font-weight:800; font-size:46px; letter-spacing:-.02em;
+                  line-height:1; font-variant-numeric:tabular-nums }
+.opener .stats span{ display:block; margin-top:10px; font-size:15px; color:rgba(255,255,255,.7) }
+.opener .marks{ display:flex; align-items:center; gap:48px; margin-top:52px; flex-wrap:wrap }
+.opener .marks .wp{ height:104px; width:auto; filter:brightness(0) invert(1) }
+.opener .marks .ex{ height:46px; width:auto }
+
+/* Digital's opener: ExpatGo itself, on a tilted screen, scrolling */
+.opener .bgm.scrollbg{ background:radial-gradient(circle at 75% 40%,#1D2A55 0%,#0B0B0D 62%) }
+.opener .bgm.scrollbg > img{ inset:auto; top:-6%; right:7%; left:auto; width:520px; height:auto; object-fit:initial;
+  transform:perspective(1500px) rotateY(-20deg) rotateX(6deg) rotateZ(3deg); border-radius:12px;
+  box-shadow:0 60px 120px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.08);
+  animation:tilt-browse 60s ease-in-out infinite alternate }
+@keyframes tilt-browse{
+  0%, 5%{ transform:perspective(1500px) rotateY(-20deg) rotateX(6deg) rotateZ(3deg) translateY(0) }
+  95%, 100%{ transform:perspective(1500px) rotateY(-20deg) rotateX(6deg) rotateZ(3deg) translateY(-62%) } }
+.opener .bgm.scrollbg::after{
+  background:linear-gradient(90deg,rgba(11,11,13,.96) 0%,rgba(11,11,13,.75) 42%,rgba(11,11,13,.1) 75%),
+             linear-gradient(to top,rgba(11,11,13,.9) 0%,rgba(11,11,13,0) 45%) }
+
+/* ---------- chapter content ---------- */
+.chapter{ background:#fff; padding:80px 0 120px }
+.chapter .kv{ list-style:none; margin:30px 0 0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px }
+.chapter .kv b{ display:block; font-family:var(--display); font-weight:800; font-size:26px; letter-spacing:-.01em; line-height:1.1 }
+.chapter .kv span{ display:block; margin-top:6px; font-size:13.5px; line-height:1.45; color:var(--soft) }
+.chapter .kv.sm{ grid-template-columns:repeat(2,minmax(0,1fr)); margin-top:22px; padding-top:20px; border-top:1px solid var(--rule) }
+.chapter .kv.sm b{ font-size:22px }
+
+/* The Expat: black, with the three newest covers fanned */
+.xfeat{ display:grid; grid-template-columns:1fr 1fr; background:var(--black); color:#fff; overflow:hidden; scroll-margin-top:130px }
+.xfeat .txt{ padding:74px 64px }
+.xfeat .eyebrow{ color:var(--red-lt) }
+.xfeat .h-sec{ color:#fff; font-size:52px; margin-top:14px }
+.xfeat .lede{ color:rgba(255,255,255,.78); margin-top:18px; max-width:500px }
+.xfeat .kv span{ color:rgba(255,255,255,.62) }
+.xfeat .cta{ display:flex; gap:14px; flex-wrap:wrap; margin-top:38px }
+.fan{ position:relative; min-height:520px;
+      background:radial-gradient(circle at 50% 55%,rgba(200,16,46,.22) 0%,rgba(11,11,13,0) 62%) }
+.fan .fc{ position:absolute; left:50%; top:50%; width:228px; transition:transform .7s cubic-bezier(.2,.7,.2,1) }
+.fan .fc img{ display:block; width:100%; height:auto; box-shadow:0 30px 60px rgba(0,0,0,.65), 0 0 0 1px rgba(255,255,255,.06) }
+.fan .f1{ z-index:3; transform:translate(-50%,-50%) rotate(2deg) }
+.fan .f2{ z-index:2; transform:translate(-100%,-47%) rotate(-9deg) }
+.fan .f3{ z-index:1; transform:translate(0,-45%) rotate(10deg) }
+.xfeat:hover .f1{ transform:translate(-50%,-53%) rotate(0) }
+.xfeat:hover .f2{ transform:translate(-118%,-47%) rotate(-12deg) }
+.xfeat:hover .f3{ transform:translate(18%,-45%) rotate(13deg) }
+
+/* the other three titles, as cards with their covers */
+.trio{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px; margin-top:28px }
+.tcard{ display:flex; flex-direction:column; background:#fff; border:1px solid var(--rule); scroll-margin-top:130px;
+        transition:transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease }
+.tcard:hover{ transform:translateY(-6px); box-shadow:0 30px 60px rgba(20,20,30,.12) }
+.tcard .tv{ position:relative; display:block; height:300px; overflow:hidden }
+.tcard.ewg .tv{ background:linear-gradient(160deg,#155A86 0%,#0A2C45 100%) }
+.tcard.edu .tv{ background:linear-gradient(160deg,#F4ECDB 0%,#E4D3AE 100%) }
+.tcard.rsgc .tv{ background:linear-gradient(160deg,#14864A 0%,#0B5A31 100%) }
+.tcard .tv img{ position:absolute; left:50%; bottom:-34px; width:158px; height:auto;
+                box-shadow:0 24px 44px rgba(0,0,0,.4); transition:transform .6s cubic-bezier(.2,.7,.2,1) }
+.tcard .tv .back{ transform:translateX(-92%) rotate(-8deg); opacity:.92 }
+.tcard .tv .front{ transform:translateX(-28%) rotate(3deg) }
+.tcard .tv .solo{ transform:translateX(-50%) rotate(-2deg) }
+.tcard:hover .tv .back{ transform:translateX(-104%) translateY(-6px) rotate(-11deg) }
+.tcard:hover .tv .front{ transform:translateX(-24%) translateY(-14px) rotate(1deg) }
+.tcard:hover .tv .solo{ transform:translateX(-50%) translateY(-14px) rotate(0) }
+.tcard .tb{ display:flex; flex-direction:column; flex:1; padding:30px 30px 32px }
+.tcard h3{ font-family:var(--display); font-weight:800; font-size:24px; line-height:1.1; margin-top:12px }
+.tcard h3 .serif{ display:block; font-weight:400; font-size:26px; margin-top:2px }
+.tcard p{ margin-top:14px; font-size:15.5px; line-height:1.6; color:var(--soft) }
+.tcard.rsgc .eyebrow{ color:#107840 }
+.links{ display:flex; flex-direction:column; align-items:flex-start; gap:12px; margin-top:auto; padding-top:24px }
+
+/* ExpatGo: the site in a browser window */
+.dfeat{ display:grid; grid-template-columns:1.1fr 1fr; gap:70px; align-items:center; background:var(--warm);
+        padding:64px; scroll-margin-top:130px }
+.browser{ display:block; border-radius:12px; overflow:hidden; background:#1B1C21;
+          box-shadow:0 40px 80px rgba(20,20,30,.28), 0 0 0 1px rgba(0,0,0,.06);
+          transform:perspective(1600px) rotateY(7deg); transition:transform .8s cubic-bezier(.2,.7,.2,1) }
+.dfeat:hover .browser{ transform:perspective(1600px) rotateY(0) }
+.browser .bbar{ display:flex; align-items:center; gap:7px; height:36px; padding:0 14px; background:#26272D }
+.browser .bbar i{ width:11px; height:11px; border-radius:50%; background:#FF5F57 }
+.browser .bbar i:nth-child(2){ background:#FEBC2E } .browser .bbar i:nth-child(3){ background:#28C840 }
+.browser .bbar em{ margin-left:14px; font-style:normal; font-size:12px; color:rgba(255,255,255,.6);
+                  background:rgba(255,255,255,.08); padding:4px 16px; border-radius:6px }
+.browser .screen{ position:relative; display:block; height:430px; overflow:hidden; background:#fff }
+.browser .screen img{ display:block; width:100%; height:auto; animation:browse-d 34s ease-in-out infinite alternate }
+@keyframes browse-d{ 0%, 6%{ transform:translateY(0) } 94%, 100%{ transform:translateY(calc(-100% + 430px)) } }
+.dfeat .glogo{ display:block; width:150px; height:auto; margin-bottom:26px }
+.dfeat .h-sec{ font-size:40px; margin-top:12px }
+.dfeat .h-sec .serif{ display:block }
+.dfeat .lede{ margin-top:16px }
+.dfeat .kv{ grid-template-columns:repeat(2,minmax(0,1fr)) }
+.dfeat .cta{ display:flex; gap:14px; flex-wrap:wrap; margin-top:34px }
+
+/* newsletters, sponsored stories, video */
+.dcard{ display:flex; flex-direction:column; background:#fff; border:1px solid var(--rule); padding:34px 32px 32px;
+        scroll-margin-top:130px; transition:transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease }
+.dcard:hover{ transform:translateY(-6px); box-shadow:0 30px 60px rgba(20,20,30,.1) }
+.dcard h3{ font-family:var(--display); font-weight:800; font-size:24px; line-height:1.15; margin-top:12px }
+.dcard h3 .serif{ font-weight:400 }
+.dcard > p{ margin-top:12px; font-size:15.5px; line-height:1.6; color:var(--soft) }
+.dcard .big{ display:block; font-family:var(--display); font-weight:800; font-size:40px; letter-spacing:-.02em;
+             color:var(--ink); line-height:1; margin-bottom:6px }
+.chips{ list-style:none; margin:20px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:8px }
+.chips li{ font-size:12.5px; font-weight:500; padding:7px 12px; border:1px solid var(--rule); border-radius:999px;
+           background:#FAF9F6; color:var(--ink) }
+.vbars{ list-style:none; margin:18px 0 0; padding:0 }
+.vbars li{ display:grid; grid-template-columns:1fr auto; row-gap:7px; padding:11px 0; border-bottom:1px solid var(--rule) }
+.vbars li span{ font-size:14.5px }
+.vbars li b{ font-family:var(--display); font-weight:700; font-size:14px; font-variant-numeric:tabular-nums }
+.vbars li i{ grid-column:1 / -1; height:5px; background:var(--warm); position:relative; overflow:hidden }
+.vbars li i::after{ content:""; position:absolute; left:0; top:0; bottom:0; width:var(--w); background:var(--red) }
+.vids{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px }
+.vids a{ position:relative; display:block }
+.vids img{ display:block; width:100%; aspect-ratio:16/10; object-fit:cover; transition:filter .3s }
+.vids a::after{ content:""; position:absolute; left:50%; top:calc(50% - 12px); width:40px; height:40px; margin:-20px 0 0 -20px;
+                border-radius:50%; background:rgba(200,16,46,.92) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 7v10l8-5z' fill='%23fff'/%3E%3C/svg%3E") center/22px no-repeat;
+                box-shadow:0 6px 16px rgba(0,0,0,.35); transition:transform .3s }
+.vids a:hover::after{ transform:scale(1.12) }
+.vids a:hover img{ filter:brightness(.85) }
+.vids span{ display:block; margin-top:9px; font-family:var(--display); font-weight:700; font-size:12px }
+.dcard > .more{ align-self:flex-start; margin-top:auto; padding-top:24px }
+.dcard > .more:first-of-type{ margin-top:auto }
+
+/* Events: the two flagships, then the monthly evenings */
+.duo{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px }
+.ecard{ display:flex; flex-direction:column; background:var(--black); color:#fff; overflow:hidden; scroll-margin-top:130px }
+.ecard .im{ aspect-ratio:16/9; overflow:hidden }
+.ecard .im img{ display:block; width:100%; height:100%; object-fit:cover; transition:transform 1.4s cubic-bezier(.2,.7,.2,1) }
+.ecard:hover .im img{ transform:scale(1.05) }
+.ecard .bd{ display:flex; flex-direction:column; flex:1; padding:34px 38px 38px }
+.ecard .mk{ display:block; width:auto }
+.ecard .mk.wp{ height:74px; filter:brightness(0) invert(1) }
+.ecard .mk.ex{ height:38px; margin:18px 0 18px -6px }
+.ecard .eyebrow{ margin-top:22px; color:var(--red-lt) }
+.ecard .mk.ex + .eyebrow{ color:#FF914D; margin-top:4px }
+.ecard p{ margin-top:12px; color:rgba(255,255,255,.8); font-size:16px; line-height:1.6 }
+.ecard .links{ flex-direction:row; flex-wrap:wrap; gap:24px }
+.ecard .more{ color:#fff }
+.minis{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px; margin-top:28px }
+.mini{ display:grid; grid-template-columns:128px 1fr; align-items:center; gap:20px; padding:14px;
+       background:#fff; border:1px solid var(--rule); transition:border-color .25s, box-shadow .25s }
+.mini:hover{ border-color:var(--red); box-shadow:0 16px 34px rgba(20,20,30,.08) }
+.mini img{ width:128px; height:92px; object-fit:cover; display:block }
+.mini b{ display:block; font-family:var(--display); font-weight:800; font-size:16px }
+.mini em{ display:block; font-style:normal; font-size:14px; color:var(--soft); margin-top:4px }
+
+/* MM2H */
+.mfeat{ display:grid; grid-template-columns:1.2fr 1fr; gap:80px; align-items:center; scroll-margin-top:130px }
+.mfeat .mlogo{ display:block; width:230px; height:auto; margin-bottom:28px }
+.mfeat .h-sec{ margin-top:12px }
+.mfeat .h-sec .serif{ display:block }
+.mfeat .lede{ margin-top:16px; max-width:540px }
+.mfeat .cta{ margin-top:32px }
+.schemes{ list-style:none; margin:0; padding:0; border-bottom:1px solid var(--rule) }
+.schemes li{ padding:24px 0; border-top:1px solid var(--rule) }
+.schemes span{ display:block; font-family:var(--display); font-weight:700; font-size:11px; letter-spacing:.2em;
+               text-transform:uppercase; color:var(--red) }
+.schemes b{ display:block; margin-top:8px; font-family:var(--display); font-weight:700; font-size:21px; color:var(--ink) }
+
+/* ---------- phones and tablets ---------- */
+@media (max-width:1100px){
+  .opener h2{ font-size:110px }
+  .xfeat, .dfeat, .mfeat{ grid-template-columns:1fr }
+  .xfeat .txt{ padding:56px 44px 20px }
+  .fan{ min-height:440px }
+  .dfeat{ gap:44px; padding:44px }
+  .trio{ grid-template-columns:1fr 1fr }
+  .minis{ grid-template-columns:1fr 1fr }
+  .mfeat{ gap:44px }
+}
+@media (max-width:900px){
+  .whero{ padding:150px 0 60px }
+  .whero h1 .sans{ font-size:44px } .whero h1 .serif{ font-size:40px }
+  .whero p{ font-size:17px }
+  .cols4.short{ height:auto }
+  .cols4.short .col{ height:240px }
+  @keyframes browse-s{ 0%, 6%{ transform:translateY(0) } 94%, 100%{ transform:translateY(calc(-100% + 240px)) } }
+  .opener{ min-height:560px; padding:120px 0 52px }
+  .opener h2{ font-size:76px }
+  .opener p{ font-size:17px }
+  .opener .stats{ grid-template-columns:1fr 1fr; row-gap:24px; column-gap:32px; margin-top:38px }
+  .opener .stats li + li::before{ display:none }
+  .opener .stats b{ font-size:34px }
+  .opener .marks{ gap:30px } .opener .marks .wp{ height:76px } .opener .marks .ex{ height:32px }
+  .opener .bgm.scrollbg > img{ width:300px; right:-40px; opacity:.55 }
+  .chapter{ padding:44px 0 80px }
+  .chapter .kv{ grid-template-columns:1fr 1fr }
+  .xfeat .txt{ padding:44px 24px 10px }
+  .xfeat .h-sec{ font-size:40px }
+  .fan{ min-height:360px }
+  .fan .fc{ width:170px }
+  .trio, .duo, .minis{ grid-template-columns:1fr }
+  .tcard .tv{ height:250px }
+  .dfeat{ padding:24px 20px 36px }
+  .browser{ transform:none }
+  .browser .screen{ height:300px }
+  @keyframes browse-d{ 0%, 6%{ transform:translateY(0) } 94%, 100%{ transform:translateY(calc(-100% + 300px)) } }
+  .dfeat .h-sec{ font-size:32px }
+  .ecard .bd{ padding:28px 24px 30px }
+  .mfeat .mlogo{ width:180px }
+}
+
+/* ===================== EVENTS page, third pass ===================== */
+
+/* the hero gets an index of the three kinds of event, like the homepage pillars */
+.phero.evhero{ height:auto; min-height:740px; flex-direction:column; justify-content:flex-end; align-items:stretch }
+.phero.evhero .in{ padding-bottom:56px }
+.evidx{ position:relative; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); column-gap:64px;
+        padding-top:26px; padding-bottom:42px }
+.evidx::before{ content:""; position:absolute; top:0; left:40px; right:40px; height:1px; background:rgba(255,255,255,.24) }
+.evidx a{ position:relative; display:block }
+.evidx a + a::before{ content:""; position:absolute; left:-32px; top:0; bottom:0; width:1px; background:rgba(255,255,255,.16) }
+.evidx b{ display:block; font-family:var(--display); font-weight:700; font-size:12.5px; letter-spacing:.2em;
+          text-transform:uppercase; color:#fff }
+.evidx b::before{ content:""; display:inline-block; width:8px; height:8px; background:var(--red); margin-right:12px; vertical-align:1px }
+.evidx span{ display:block; margin-top:8px; font-size:15px; color:rgba(255,255,255,.75); transition:color .25s }
+.evidx a:hover span{ color:#fff }
+.js .evidx{ animation:fade 1.2s .9s ease both }
+
+/* flagship facts, as small outlined labels */
+.ffacts{ list-style:none; margin:24px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:8px }
+.ffacts li{ font-family:var(--display); font-weight:600; font-size:11.5px; letter-spacing:.06em; padding:7px 12px;
+            border:1px solid rgba(255,255,255,.25); color:rgba(255,255,255,.88) }
+.ffacts.ex li{ border-color:rgba(255,145,77,.45) }
+.flag .body .eyebrow{ color:var(--red-lt) }
+.flag .mark.ex ~ .eyebrow{ color:#FF914D }
+
+/* moments: two rows of photographs drifting past in opposite directions */
+.moments{ margin-top:90px; display:grid; gap:14px; overflow:hidden }
+.mrow{ overflow:hidden }
+.mrow .track{ display:flex; gap:14px; width:max-content; animation:marquee 70s linear infinite }
+.mrow.rev .track{ animation-direction:reverse; animation-duration:80s }
+.mrow img{ display:block; height:250px; width:auto; object-fit:cover; flex:none; filter:saturate(.9);
+           transition:filter .4s }
+.mrow img:hover{ filter:saturate(1.1) }
+@keyframes marquee{ from{ transform:translateX(0) } to{ transform:translateX(calc(-50% - 7px)) } }
+
+/* the monthly evenings, as full cards */
+.mcards{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:32px }
+.mcard{ display:flex; flex-direction:column; border:1px solid var(--rule); background:#fff;
+        transition:transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease }
+.mcard:hover{ transform:translateY(-6px); box-shadow:0 30px 60px rgba(20,20,30,.1) }
+.mcard .im{ position:relative; height:340px; overflow:hidden }
+.mcard .im img{ width:100%; height:100%; object-fit:cover; transition:transform 1.4s cubic-bezier(.2,.7,.2,1) }
+.mcard:hover .im img{ transform:scale(1.05) }
+.mcard .tag{ position:absolute; left:22px; top:22px; background:var(--red); color:#fff; font-family:var(--display);
+             font-weight:700; font-size:11px; letter-spacing:.2em; text-transform:uppercase; padding:8px 12px }
+.mcard .bd{ padding:32px 34px 34px }
+.mcard h3{ font-family:var(--display); font-weight:800; font-size:28px }
+.mcard p{ margin-top:12px; color:var(--soft); font-size:16px; line-height:1.6 }
+.kv3{ display:grid; grid-template-columns:auto 1fr; gap:0 22px; margin-top:22px; border-top:1px solid var(--rule) }
+.kv3 dt, .kv3 dd{ padding:12px 0; border-bottom:1px solid var(--rule); margin:0 }
+.kv3 dt{ font-family:var(--display); font-weight:700; font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+         color:var(--grey); padding-top:14px }
+.kv3 dd{ font-size:15px }
+.evcta{ display:flex; gap:14px; flex-wrap:wrap }
+
+/* events for partners: the four steps (.psteps: .steps is the Advertise page) */
+.psteps{ list-style:none; counter-reset:st; margin:28px 0 0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:0 28px }
+.psteps li{ counter-increment:st; padding:16px 0 16px 44px; border-top:1px solid var(--rule); position:relative }
+.psteps li::before{ content:counter(st,decimal-leading-zero); position:absolute; left:0; top:16px; font-family:var(--serif);
+                   font-style:italic; font-size:20px; color:var(--red) }
+.psteps b{ display:block; font-family:var(--display); font-weight:700; font-size:15px }
+.psteps span{ display:block; margin-top:4px; font-size:14.5px; color:var(--soft); line-height:1.5 }
+
+@media (max-width:900px){
+  .phero.evhero{ min-height:0 }
+  .evidx{ grid-template-columns:1fr; row-gap:18px; padding-bottom:36px }
+  .evidx::before{ left:20px; right:20px }
+  .evidx a + a::before{ display:none }
+  .moments{ margin-top:56px }
+  .mrow img{ height:170px }
+  .mcards{ grid-template-columns:1fr }
+  .mcard .im{ height:230px }
+  .mcard .bd{ padding:26px 22px 28px }
+  .psteps{ grid-template-columns:1fr }
+}
+@media (prefers-reduced-motion:reduce){
+  .mrow{ overflow-x:auto }
+}
+@media (max-width:560px){
+  /* "MM2H961" is the widest figure: it must fit half a phone screen */
+  .opener .stats b{ font-size:28px }
+  .opener .stats span{ font-size:14px }
+}
+
+/* ===================== site-wide fixes, 30 Sep 2026 review ===================== */
+/* small grey labels were 3.2:1 on white: now 5.2:1 (4.7:1 on the warm grey) */
+:root{ --grey:#676D78 }
+.ladder li.hi span{ color:rgba(255,255,255,.62) }     /* the one grey label that sits on black */
+/* small red labels on black were 3.3:1: the lifted red is 5:1 */
+.a .mag .now span, .fam .k, .fam-row .k{ color:var(--red-lt) }
+/* the page heading on The Expat is its masthead */
+.masth{ margin:0; font-size:0; line-height:0 }
+/* "Our story" stays on one line next to Andy */
+.a .founder .more{ white-space:nowrap }
+.partner .h-sec + .lede{ margin-top:16px }
+/* contact form: the preview's reply */
+.enq .sent{ margin-top:18px; padding:14px 16px; background:#fff; border-left:3px solid var(--red); font-size:15px; line-height:1.55 }
+/* the not-found page */
+.phero.nf{ height:auto; min-height:100vh; padding-top:160px }
+.phero.nf .cta{ margin-top:36px }
+/* homepage "One campaign": the four channels had arrows but went nowhere; now links */
+.a .offer a{ display:block }
+.a .offer a b::after{ display:inline-block; transition:transform .25s }
+.a .offer a:hover b{ color:var(--red) }
+.a .offer a:hover b::after{ transform:translateX(5px) }
+/* Our work, Events: the two flagship cards play their films (Mike, 30 Sep:
+   the stills looked chopped). The card is 16:9, like the films. */
+.ecard .im{ position:relative }
+.ecard .im .yt{ z-index:1 }
+
+/* ===================== Our work, fourth pass (Mike, 30 Sep 2026) =====================
+   "The magazine flyouts should push out of their box, not slide under it", and
+   "more magazines as a background fill". The covers now rise out of the top of
+   their panels, and each panel is filled with a tilted wall of its own past
+   covers, tinted into the panel's colour. (.cwall: .wall is the old homepage.) */
+.cwall{ position:absolute; top:-45%; bottom:-45%; left:-30%; right:-30%; display:grid;
+        grid-template-columns:repeat(var(--cols,8),minmax(0,1fr)); gap:10px; align-content:start;
+        transform:rotate(-14deg); animation:wall-drift 70s ease-in-out infinite alternate; pointer-events:none }
+.cwall img{ display:block; width:100%; height:auto; aspect-ratio:.72; object-fit:cover; box-shadow:0 6px 16px rgba(0,0,0,.35) }
+@keyframes wall-drift{ from{ transform:rotate(-14deg) translate3d(0,0,0) } to{ transform:rotate(-14deg) translate3d(-5%,-12%,0) } }
+
+/* the three cards: the colour panel holds the wall, the covers stand in front of it */
+.trio{ margin-top:104px; row-gap:104px }
+.tcard{ position:relative }
+.tcard .tv{ height:250px; overflow:visible; background:none }
+.tcard.ewg .tv, .tcard.edu .tv, .tcard.rsgc .tv{ background:none }
+.tvbg{ position:absolute; inset:0; overflow:hidden; display:block }
+.tvbg::after{ content:""; position:absolute; inset:0 }
+.tcard.ewg .tvbg{ background:#0F4668 }
+.tcard.ewg .tvbg::after{ background:linear-gradient(165deg,rgba(21,90,134,.74) 0%,rgba(10,44,69,.93) 100%) }
+.tcard.edu .tvbg{ background:#E9DDC0 }
+.tcard.edu .tvbg::after{ background:linear-gradient(165deg,rgba(244,236,219,.8) 0%,rgba(228,211,174,.93) 100%) }
+.tcard.rsgc .tvbg{ background:#0E6B3B }
+.tcard.rsgc .tvbg::after{ background:linear-gradient(165deg,rgba(20,134,74,.72) 0%,rgba(11,90,49,.94) 100%) }
+.tcard .tv img.back, .tcard .tv img.front{ z-index:2; width:184px; bottom:40px }
+.tcard .tv .back{ transform:translateX(-94%) rotate(-8deg) }
+.tcard .tv .front{ transform:translateX(-26%) rotate(3deg) }
+.tcard .tv .solo{ width:196px; transform:translateX(-50%) rotate(-2deg) }
+.tcard:hover .tv .back{ transform:translateX(-108%) translateY(-8px) rotate(-11deg) }
+.tcard:hover .tv .front{ transform:translateX(-22%) translateY(-16px) rotate(1deg) }
+.tcard:hover .tv .solo{ transform:translateX(-50%) translateY(-16px) rotate(0) }
+
+/* The Expat: the wall fills the right of the black panel, and the fan rises out of its top */
+.xfeat{ position:relative; overflow:visible; margin-top:70px }
+.xfeat .txt{ position:relative; z-index:2 }
+.xwall{ position:absolute; top:0; bottom:0; left:36%; right:0; overflow:hidden; z-index:0; --cols:9 }
+.xwall::after{ content:""; position:absolute; inset:0;
+  background:linear-gradient(90deg,#0B0B0D 0%,rgba(11,11,13,.86) 26%,rgba(11,11,13,.62) 100%),
+             radial-gradient(circle at 55% 40%,rgba(200,16,46,.2) 0%,rgba(11,11,13,0) 60%) }
+.xwall .cwall{ opacity:.9 }
+.fan{ position:relative; z-index:1; background:none; min-height:540px }
+.fan .fc{ width:252px; top:auto }
+.fan .f1{ top:-72px; transform:translateX(-50%) rotate(2deg) }
+.fan .f2{ top:10px; transform:translateX(-118%) rotate(-9deg) }
+.fan .f3{ top:28px; transform:translateX(18%) rotate(10deg) }
+.xfeat:hover .f1{ transform:translateX(-50%) translateY(-12px) rotate(0) }
+.xfeat:hover .f2{ transform:translateX(-132%) translateY(-4px) rotate(-12deg) }
+.xfeat:hover .f3{ transform:translateX(32%) translateY(-4px) rotate(13deg) }
+
+@media (max-width:1100px){
+  .xfeat{ margin-top:90px }
+  .xfeat .fan{ order:-1; min-height:420px }
+  .xwall{ left:0 }
+  .xwall::after{ background:linear-gradient(to bottom,rgba(11,11,13,.55) 0%,rgba(11,11,13,.8) 45%,#0B0B0D 70%) }
+  .fan .fc{ width:210px }
+  .fan .f1{ top:-64px } .fan .f2{ top:4px } .fan .f3{ top:18px }
+}
+@media (max-width:900px){
+  .trio{ margin-top:96px; row-gap:96px }
+  .tcard .tv{ height:230px }
+  .tcard .tv img.back, .tcard .tv img.front{ width:164px; bottom:34px }
+  .tcard .tv .solo{ width:176px }
+  .xfeat .fan{ min-height:320px }
+  .fan .fc{ width:160px }
+  .fan .f1{ top:-54px } .fan .f2{ top:0 } .fan .f3{ top:12px }
+  .cwall{ --cols:7 }
+}
+/* the walls were tinted too heavily to read: lighter, so the past covers show */
+.tcard.ewg .tvbg::after{ background:linear-gradient(165deg,rgba(21,90,134,.42) 0%,rgba(10,44,69,.78) 100%) }
+.tcard.edu .tvbg::after{ background:linear-gradient(165deg,rgba(244,236,219,.45) 0%,rgba(228,211,174,.8) 100%) }
+.tcard.rsgc .tvbg::after{ background:linear-gradient(165deg,rgba(20,134,74,.4) 0%,rgba(11,90,49,.8) 100%) }
+.xwall::after{
+  background:linear-gradient(90deg,#0B0B0D 0%,rgba(11,11,13,.82) 24%,rgba(11,11,13,.5) 100%),
+             radial-gradient(circle at 55% 40%,rgba(200,16,46,.18) 0%,rgba(11,11,13,0) 60%) }
+@media (max-width:1100px){
+  .xwall::after{ background:linear-gradient(to bottom,rgba(11,11,13,.45) 0%,rgba(11,11,13,.78) 48%,#0B0B0D 72%) }
+}
+/* the cover rules above style every img in a card panel: the wall's tiles must not be treated as covers */
+.tcard .tv .cwall img{ position:static; left:auto; bottom:auto; width:100%; height:auto; transform:none;
+                       box-shadow:0 6px 16px rgba(0,0,0,.35); transition:none }
+@media (max-width:900px){
+  /* the fan must stay inside a phone screen */
+  .fan .fc{ width:150px }
+  .fan .f2{ transform:translateX(-98%) rotate(-8deg) }
+  .fan .f3{ transform:translateX(-2%) rotate(8deg) }
+  .xfeat:hover .f2{ transform:translateX(-104%) rotate(-10deg) }
+  .xfeat:hover .f3{ transform:translateX(4%) rotate(10deg) }
+}
+
+/* ===================== Our work, fifth pass (Mike, 30 Sep 2026) ===================== */
+/* Digital: newsletters and sponsored stories side by side, then the TEG channel,
+   its two MM2H Brief films playing, with nothing to click through to YouTube */
+.dduo{ margin-top:28px }
+.chan{ display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr); gap:56px; align-items:center;
+       margin-top:28px; background:var(--black); color:#fff; padding:56px; scroll-margin-top:130px }
+.chan .eyebrow{ color:var(--red-lt) }
+.chan .h-sec{ color:#fff; font-size:42px; margin-top:12px }
+.chan .lede{ color:rgba(255,255,255,.78); margin-top:16px }
+.chan .more{ display:inline-block; margin-top:26px; color:#fff }
+.cvids{ display:grid; grid-template-columns:1fr 1fr; gap:20px }
+.cvids figure{ margin:0 }
+.cvid{ position:relative; aspect-ratio:16/9; overflow:hidden; background:#000 }
+.cvid img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover }
+.cvid .yt{ z-index:1 }
+.cvids figcaption{ margin-top:12px; font-family:var(--display); font-weight:700; font-size:12.5px; letter-spacing:.02em;
+                   color:rgba(255,255,255,.7) }
+.cvids figcaption em{ font-family:var(--serif); font-style:italic; font-weight:400; font-size:15px; color:#fff }
+
+/* Events: the two flagships as full-height film posters */
+.fposts{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px }
+.fpost{ position:relative; min-height:600px; display:flex; align-items:flex-end; overflow:hidden;
+        background:var(--black); color:#fff; scroll-margin-top:130px }
+.fpost .fm{ position:absolute; inset:0 }
+.fpost .fm img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+                transition:transform 1.6s cubic-bezier(.2,.7,.2,1) }
+.fpost:hover .fm img{ transform:scale(1.04) }
+.fpost .fm .yt{ z-index:1 }
+.fpost .fm::after{ content:""; position:absolute; inset:0; z-index:2;
+  background:linear-gradient(to bottom,rgba(5,6,10,.2) 0%,rgba(5,6,10,0) 28%,rgba(5,6,10,.55) 55%,rgba(5,6,10,.95) 100%) }
+.fpost .fb{ position:relative; z-index:3; width:100%; padding:40px 42px 42px }
+.fpost .mk{ display:block; width:auto }
+.fpost .mk.wp{ height:84px; filter:brightness(0) invert(1) }
+.fpost .mk.ex{ height:40px; margin-left:-6px }
+.fpost .eyebrow{ margin-top:20px; color:var(--red-lt) }
+.fpost.ex .eyebrow{ color:#FF914D }
+.fpost p{ margin-top:12px; max-width:480px; font-size:16.5px; line-height:1.6; color:rgba(255,255,255,.88) }
+.fpost .links{ flex-direction:row; flex-wrap:wrap; gap:24px; padding-top:22px }
+.fpost .more{ color:#fff }
+
+/* the evenings, three across */
+.evens{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px; margin-top:28px }
+.even{ display:flex; flex-direction:column; background:#fff; border:1px solid var(--rule);
+       transition:transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease, border-color .3s ease }
+.even:hover{ transform:translateY(-6px); box-shadow:0 30px 60px rgba(20,20,30,.1); border-color:var(--red) }
+.even .im{ position:relative; display:block; aspect-ratio:4/3; overflow:hidden }
+.even .im img{ display:block; width:100%; height:100%; object-fit:cover; transition:transform 1.4s cubic-bezier(.2,.7,.2,1) }
+.even:hover .im img{ transform:scale(1.06) }
+.even .im i{ position:absolute; left:18px; top:18px; font-style:normal; background:var(--red); color:#fff;
+             font-family:var(--display); font-weight:700; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; padding:7px 11px }
+.even b{ display:block; padding:24px 26px 0; font-family:var(--display); font-weight:800; font-size:24px }
+.even .tx{ display:block; padding:10px 26px 28px; font-size:15.5px; line-height:1.6; color:var(--soft) }
+
+/* corporate event organising: a service, on a row of its own */
+.corp{ display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); margin-top:28px; background:var(--warm);
+       scroll-margin-top:130px }
+.cmos{ display:grid; grid-template-columns:1.3fr 1fr; grid-template-rows:1fr 1fr; gap:10px; padding:10px; min-height:580px }
+.cmos img{ display:block; width:100%; height:100%; object-fit:cover }
+.cmos .c1{ grid-row:1 / 3 }
+.corp .ctx{ padding:56px 56px 52px }
+.corp .h-sec{ margin-top:12px } .corp .h-sec .serif{ display:block }
+.corp .lede{ margin-top:16px }
+.corp .past{ margin:24px 0 26px }
+
+/* Events page: three evenings */
+.mcards.three{ grid-template-columns:repeat(3,minmax(0,1fr)) }
+.mcards.three .mcard .im{ height:280px }
+
+@media (max-width:1100px){
+  .chan{ grid-template-columns:1fr; gap:34px; padding:44px }
+  .corp{ grid-template-columns:1fr } .cmos{ min-height:440px }
+  .evens, .mcards.three{ grid-template-columns:1fr 1fr }
+}
+@media (max-width:900px){
+  .fposts, .evens, .mcards.three{ grid-template-columns:1fr }
+  .fpost{ min-height:520px } .fpost .fb{ padding:28px 24px 30px }
+  .chan{ padding:32px 22px 36px } .chan .h-sec{ font-size:34px }
+  .cvids{ grid-template-columns:1fr }
+  .corp .ctx{ padding:34px 24px 38px } .cmos{ min-height:320px }
+}
+
+/* the TEG Card: Mike's card artwork in place of the CSS mock-up (30 Sep 2026) */
+.tegcard .cardimg{ display:block; width:min(100%,480px); transform:rotate(-6deg);
+                   filter:drop-shadow(0 40px 60px rgba(0,0,0,.55)); transition:transform .6s cubic-bezier(.2,.7,.2,1) }
+.tegcard .cardimg:hover{ transform:rotate(-2deg) translateY(-8px) }
+.tegcard .cardimg img{ display:block; width:100%; height:auto }
+/* corporate events: the Tropicana Cenang collage, on Our work and on Events */
+.cpic{ padding:10px }
+.cpic img{ display:block; width:100%; height:100%; object-fit:cover }
+.corp .cpic{ align-self:stretch }
+.partner .cpic{ padding:0 }
+.partner .cpic img{ height:auto; box-shadow:0 30px 60px rgba(20,20,30,.18) }
+@media (max-width:1100px){ .corp .cpic img{ height:auto } }
+@media (max-width:900px){ .tegcard .cardimg{ width:min(100%,340px) } }
+/* the collage is shown whole: cropping it to the row cut faces in half */
+.corp .cpic{ align-self:center }
+.corp .cpic img{ height:auto; object-fit:initial }
+
+/* ===================== Advertise hero, second go (Mike, 30 Sep 2026) =====================
+   The tiles were rejected. A full-width photograph (the Mingle toast, 2,400px) with the
+   openers' strong left-hand shade, so the words sit on calm dark and the people show on the right. */
+.phero.advhero{ height:680px }
+.phero.advhero .shade{
+  background:linear-gradient(90deg,rgba(5,6,10,.92) 0%,rgba(5,6,10,.8) 36%,rgba(5,6,10,.3) 68%,rgba(5,6,10,.08) 100%),
+             linear-gradient(to top,rgba(5,6,10,.55) 0%,rgba(5,6,10,0) 45%) }
+.phero.advhero p{ max-width:540px }
+@media (max-width:900px){
+  .phero.advhero{ height:auto; min-height:560px }
+  .phero.advhero .shade{ background:linear-gradient(to bottom,rgba(5,6,10,.5) 0%,rgba(5,6,10,.9) 100%) }
+}
+
+/* corporate events: "the lady pointing" leads, three more from the same evening below (Mike) */
+.cmos2{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; padding:10px; align-self:center }
+.cmos2 img{ display:block; width:100%; height:auto; object-fit:cover }
+.cmos2 .m1{ grid-column:1 / -1; aspect-ratio:1449 / 995 }
+.cmos2 .m2, .cmos2 .m3, .cmos2 .m4{ aspect-ratio:4 / 3 }
+.partner .cmos2{ padding:0 }
+.partner .cmos2 .m1{ box-shadow:0 30px 60px rgba(20,20,30,.16) }
+
+/* ===================== Membership: the TEG Card (Mike, 30 Sep 2026) =====================
+   Its own page, in the menu where Events was; the card itself is the picture. */
+.memhero{ position:relative; overflow:hidden; background:var(--black); color:#fff; padding:190px 0 110px }
+.memhero .fronds{ opacity:.04 }
+.memhero::before{ content:""; position:absolute; right:-8%; top:0; width:72%; height:100%; pointer-events:none;
+  background:radial-gradient(circle at 55% 50%,rgba(150,60,72,.5) 0%,rgba(11,11,13,0) 62%) }
+.memgrid{ position:relative; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:64px; align-items:center }
+.memtxt .eyebrow{ color:#fff; opacity:.75 }
+.memtxt h1{ margin-top:20px; line-height:1.04 }
+.memtxt h1 .sans{ display:block; font-family:var(--display); font-weight:800; font-size:68px; letter-spacing:-.025em }
+.memtxt h1 .serif{ display:block; font-size:42px; margin-top:12px }
+.memtxt p{ max-width:520px; margin-top:24px; font-size:19px; line-height:1.6; color:rgba(255,255,255,.84) }
+.memtxt .cta{ display:flex; gap:14px; flex-wrap:wrap; margin-top:34px }
+.js .memtxt > *{ animation:rise 1s cubic-bezier(.2,.7,.2,1) both }
+.js .memtxt > :nth-child(2){ animation-delay:.15s }
+.js .memtxt > :nth-child(3){ animation-delay:.3s }
+.js .memtxt > :nth-child(4){ animation-delay:.45s }
+.memcard{ display:block; animation:float 7s ease-in-out infinite alternate }
+.memcard .tilt{ position:relative; display:block; transform:perspective(1400px) rotateY(-16deg) rotateX(7deg) rotateZ(-4deg);
+                filter:drop-shadow(0 50px 70px rgba(0,0,0,.6)); transition:transform .9s cubic-bezier(.2,.7,.2,1) }
+.memcard:hover .tilt{ transform:perspective(1400px) rotateY(0) rotateX(0) rotateZ(0) }
+.memcard img{ display:block; width:100%; height:auto }
+/* a slow light across the card, masked to the card's own shape */
+.memcard .shine{ position:absolute; inset:0; pointer-events:none;
+  -webkit-mask:url(../assets/teg-card.png) center / 100% 100% no-repeat; mask:url(../assets/teg-card.png) center / 100% 100% no-repeat;
+  background:linear-gradient(115deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.26) 47%,rgba(255,255,255,0) 60%);
+  background-size:260% 100%; animation:cardshine 7s ease-in-out infinite }
+@keyframes cardshine{ 0%{ background-position:130% 0 } 55%, 100%{ background-position:-30% 0 } }
+
+
+
+
+@media (max-width:1100px){
+  .memtxt h1 .sans{ font-size:54px } .memtxt h1 .serif{ font-size:34px }
+}
+@media (max-width:900px){
+  .memhero{ padding:140px 0 70px }
+  .memgrid{ grid-template-columns:1fr; gap:48px }
+  .memtxt h1 .sans{ font-size:44px } .memtxt h1 .serif{ font-size:28px }
+  .memtxt p{ font-size:17px }
+  .memtxt .cta{ flex-direction:column; align-items:stretch } .memtxt .cta .btn{ justify-content:center }
+}
+/* the homepage band's heading breaks cleanly */
+.memband .h-sec .serif{ display:block }
+/* the Astor Bar sign stays in frame on the Mingle Plus photograph */
+img[src$="mg-astor.jpg"]{ object-position:50% 0 }
+
+/* ------- TEG Card partner offers (Membership page): a small logo wall, filled live from the card's feed by js/offers.js ------- */
+.pofs{ background:var(--warm); padding:110px 0; scroll-margin-top:80px }
+.pof-head{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:60px; align-items:end; margin-bottom:40px }
+.pof-head .lede{ max-width:520px; justify-self:end }
+.pof-note{ font-size:17px }
+.pof-note a, .pof-jump{ color:var(--red); text-decoration:underline; text-underline-offset:3px }
+.pof-logos{ display:grid; grid-template-columns:repeat(10,minmax(0,1fr)); gap:10px }
+.pol{ position:relative; aspect-ratio:1; display:flex; align-items:center; justify-content:center; overflow:hidden;
+  cursor:default; outline-offset:3px; animation:fade .5s ease both }
+.pol img{ max-width:76%; max-height:62%; object-fit:contain; transition:transform .3s ease }
+.pol-name{ color:#fff; font-family:var(--display); font-weight:800; font-size:13px; line-height:1.2; text-align:center; padding:0 8px }
+.pol-tip{ position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; padding:10px;
+  background:rgba(11,11,13,.93); color:#fff; font-size:12px; line-height:1.35; text-align:center; opacity:0; transition:opacity .25s }
+.pol-tip b{ display:block; font-family:var(--display); font-weight:700; font-size:12px; margin-bottom:5px; color:var(--red-lt) }
+.pol:hover .pol-tip, .pol:focus .pol-tip{ opacity:1 }
+.pol:hover img{ transform:scale(1.06) }
+.pof-end{ display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; margin-top:34px; color:var(--soft) }
+@media (max-width:1100px){ .pof-logos{ grid-template-columns:repeat(8,minmax(0,1fr)) } }
+@media (max-width:900px){
+  .pofs{ padding:80px 0 }
+  .pof-head{ grid-template-columns:1fr; gap:18px; margin-bottom:30px } .pof-head .lede{ justify-self:start }
+  .pof-logos{ grid-template-columns:repeat(6,minmax(0,1fr)) }
+}
+@media (max-width:560px){
+  .pof-logos{ grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px }
+  .pol-tip{ padding:6px; font-size:11px } .pol-tip b{ display:none }
+}
+@media (prefers-reduced-motion: reduce){ .pol{ animation:none } .pol img{ transition:none } }
+/* the partner offers arrive with the new card: a pulsing dot on the label, a hint under the wall */
+.pof-soon{ display:inline-flex; align-items:center; gap:10px }
+.pof-soon i{ width:8px; height:8px; border-radius:50%; background:var(--red); animation:pof-pulse 2s ease-out infinite }
+@keyframes pof-pulse{ 0%{ box-shadow:0 0 0 0 rgba(200,16,46,.45) } 70%{ box-shadow:0 0 0 10px rgba(200,16,46,0) } 100%{ box-shadow:0 0 0 0 rgba(200,16,46,0) } }
+.pof-hint{ margin-top:14px; font-size:14px; color:var(--soft) }
+.pof-end b{ color:var(--ink); font-weight:700 }
+@media (prefers-reduced-motion: reduce){ .pof-soon i{ animation:none } }
+.pof-head .h-sec .serif{ white-space:nowrap }
+
+/* ===================== Membership below the hero (redesigned 1 Oct 2026) =====================
+   Mike: the page "fizzles out" after the hero, and the RM25 x 2 x 2 sum was chopped on phones.
+   Savings now sit on the event photographs; the sum is a bill that reads top to bottom; three
+   steps; and the card closes the page as it opened it. */
+.mhead{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:60px; align-items:end; margin-bottom:44px }
+.mhead .lede{ max-width:520px; justify-self:end }
+.mhead > :only-child{ grid-column:1 / -1 }
+
+.mperks{ padding:120px 0 110px; background:#fff; scroll-margin-top:80px }
+.mperk-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px }
+.mperk{ position:relative; display:flex; flex-direction:column; justify-content:flex-end; aspect-ratio:4/5; padding:30px;
+  overflow:hidden; color:#fff; background:var(--black) }
+.mperk img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 1.4s cubic-bezier(.2,.7,.2,1) }
+.mperk:hover img{ transform:scale(1.06) }
+.mperk::after{ content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(8,8,10,0) 25%, rgba(8,8,10,.55) 55%, rgba(8,8,10,.94) 100%) }
+.mp-save, .mp-txt{ position:relative; z-index:1 }
+.mp-save b{ display:block; font-family:var(--display); font-weight:800; font-size:78px; letter-spacing:-.035em; line-height:.92 }
+.mp-save b.w{ font-size:44px; letter-spacing:-.02em; line-height:1.02 }
+.mp-save i{ display:block; font-family:var(--serif); font-style:italic; font-size:18px; margin-top:12px; color:rgba(255,255,255,.9) }
+.mp-txt{ margin-top:22px; padding-top:18px; border-top:1px solid rgba(255,255,255,.28) }
+.mp-txt b{ display:block; font-family:var(--display); font-weight:800; font-size:19px }
+.mp-txt span{ display:block; margin-top:6px; font-size:14.5px; line-height:1.55; color:rgba(255,255,255,.78) }
+.mperk-offers{ display:flex; align-items:center; gap:28px; margin-top:24px; padding:26px 30px; background:var(--warm);
+  border-left:4px solid var(--red); transition:background .2s }
+.mperk-offers b{ flex:1; font-family:var(--display); font-weight:800; font-size:20px }
+.mperk-offers .go{ font-family:var(--display); font-weight:700; font-size:13px; letter-spacing:.06em; text-transform:uppercase; white-space:nowrap }
+.mperk-offers .arr{ display:inline-block; color:var(--red); transition:transform .25s }
+.mperk-offers:hover{ background:#ECE8E1 }
+.mperk-offers:hover .arr{ transform:translateX(5px) }
+
+/* the bill */
+.mcalc{ position:relative; overflow:hidden; background:var(--black); color:#fff; padding:120px 0 130px }
+.mcalc .fronds{ opacity:.05 }
+.mcalc::before{ content:""; position:absolute; right:-6%; top:0; width:64%; height:100%; pointer-events:none;
+  background:radial-gradient(circle at 60% 50%, rgba(150,60,72,.42) 0%, rgba(11,11,13,0) 60%) }
+.mcalc-in{ position:relative; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,440px); gap:90px; align-items:center }
+.mcalc .eyebrow{ color:var(--red-lt) }
+.mcalc .h-sec{ color:#fff }
+.mcalc .h-sec .serif{ display:block }
+.mcalc .lede{ color:rgba(255,255,255,.8); margin-top:20px; max-width:470px }
+.receipt{ position:relative; background:#FBFAF7; color:var(--ink); padding:32px 32px 30px; font-size:15px;
+  transform:rotate(1.5deg); box-shadow:0 40px 80px rgba(0,0,0,.5) }
+.receipt::after{ content:""; position:absolute; left:0; right:0; bottom:-10px; height:10px;
+  background:radial-gradient(circle at 8px 0, #FBFAF7 8px, transparent 8.5px) 0 0 / 16px 10px repeat-x }
+.r-head{ display:flex; justify-content:space-between; padding-bottom:16px; border-bottom:2px solid var(--ink);
+  font-family:var(--display); font-weight:800; font-size:12px; letter-spacing:.16em; text-transform:uppercase }
+.receipt ul{ list-style:none; padding:8px 0; border-bottom:1px dashed rgba(21,23,28,.35) }
+.receipt li{ display:flex; justify-content:space-between; gap:16px; padding:10px 0 }
+.receipt li span{ color:var(--soft) }
+.receipt b{ font-family:var(--display); font-weight:700; font-variant-numeric:tabular-nums; white-space:nowrap }
+.r-tot{ display:flex; justify-content:space-between; align-items:baseline; padding:18px 0 12px }
+.r-tot span{ font-family:var(--display); font-weight:800; font-size:13px; letter-spacing:.14em; text-transform:uppercase }
+.r-tot b{ font-size:36px; font-weight:800; color:var(--red) }
+.r-card{ display:flex; justify-content:space-between; gap:16px; padding-top:12px; border-top:1px solid var(--rule); color:var(--soft) }
+.r-stamp{ position:absolute; right:22px; bottom:-30px; z-index:1; transform:rotate(-9deg); padding:10px 14px;
+  border:3px solid var(--red); color:var(--red); background:#FBFAF7; font-family:var(--display); font-weight:800; font-size:14px;
+  letter-spacing:.16em; text-transform:uppercase; box-shadow:0 10px 24px rgba(0,0,0,.25) }
+
+/* three steps */
+.mhow{ padding:110px 0; background:#fff }
+.msteps{ list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px }
+.msteps li{ padding:34px 30px 32px; background:var(--warm); border-top:3px solid var(--red) }
+.msteps b{ display:block; font-family:var(--serif); font-style:italic; font-weight:400; font-size:46px; line-height:1; color:var(--red) }
+.msteps h3{ font-family:var(--display); font-weight:800; font-size:21px; margin-top:22px }
+.msteps p{ margin-top:10px; color:var(--soft); font-size:15.5px; line-height:1.6 }
+
+/* the close: the card again */
+.mjoin{ position:relative; overflow:hidden; background:var(--black); color:#fff; padding:110px 0 }
+.mjoin .fronds{ opacity:.04 }
+.mjoin::before{ content:""; position:absolute; left:-8%; top:0; width:64%; height:100%; pointer-events:none;
+  background:radial-gradient(circle at 42% 50%, rgba(150,60,72,.48) 0%, rgba(11,11,13,0) 60%) }
+.mjoin-in{ position:relative; display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:80px; align-items:center }
+.mjoin-card{ display:block; max-width:460px; transform:perspective(1400px) rotateY(14deg) rotateX(6deg) rotateZ(3deg);
+  filter:drop-shadow(0 40px 60px rgba(0,0,0,.6)); transition:transform .9s cubic-bezier(.2,.7,.2,1) }
+.mjoin-card:hover{ transform:perspective(1400px) rotateY(0) rotateX(0) rotateZ(0) }
+.mjoin-card img{ display:block; width:100%; height:auto }
+.mjoin .eyebrow{ color:var(--red-lt) }
+.mjoin .h-sec{ color:#fff; font-size:64px }
+.mjoin .lede{ color:rgba(255,255,255,.8); margin-top:14px; max-width:470px }
+.mjoin .cta{ display:flex; gap:14px; flex-wrap:wrap; margin-top:30px }
+
+@media (max-width:1100px){
+  .mp-save b{ font-size:60px } .mp-save b.w{ font-size:36px }
+  .mcalc-in{ gap:56px }
+}
+@media (max-width:900px){
+  .mhead{ grid-template-columns:1fr; gap:16px; margin-bottom:30px } .mhead .lede{ justify-self:start }
+  .mperks, .mhow{ padding:72px 0 } .mcalc{ padding:72px 0 96px } .mjoin{ padding:72px 0 }
+  .mperk-grid{ grid-template-columns:1fr; gap:16px }
+  .mperk{ aspect-ratio:auto; min-height:400px; padding:24px }
+  .mperk-offers{ flex-wrap:wrap; gap:8px 20px; padding:22px 22px 22px 24px }
+  .mperk-offers b{ flex-basis:100%; font-size:18px }
+  .mcalc-in{ grid-template-columns:1fr; gap:48px }
+  .receipt{ max-width:460px; transform:rotate(1deg) }
+  .msteps{ grid-template-columns:1fr; gap:14px }
+  .mjoin-in{ grid-template-columns:1fr; gap:48px }
+  .mjoin-card{ max-width:330px }
+  .mjoin .h-sec{ font-size:44px }
+  .mjoin .cta{ flex-direction:column; align-items:stretch } .mjoin .cta .btn{ justify-content:center }
+}
+@media (max-width:560px){
+  .mp-save b{ font-size:58px }
+  .receipt{ padding:26px 22px 26px; font-size:14px }
+  .r-stamp{ right:14px; font-size:12px }
+}
+@media (prefers-reduced-motion: reduce){ .mperk img, .mjoin-card{ transition:none } }
+
+/* ===================== Portfolio: each category in its own colour (Mike, 1 Oct 2026) =====================
+   One colour per category, set once here and used for the section header's tint, the house pattern
+   behind its content, its labels and links, the tabs and the columns at the top. Print takes TEG red
+   (The Expat), Digital ExpatGo's blue, Events a whisky gold, MM2H the blue of mm2h.com.
+   --acc is the colour itself, --acc-ink a shade dark enough for small type on white, --acc-lt a shade
+   light enough for type on black. */
+.cat-print  { --acc:#C8102E; --acc-ink:#B30E29; --acc-lt:#F0445A }
+.cat-digital{ --acc:#1A4195; --acc-ink:#1A4195; --acc-lt:#86A4F0 }
+.cat-events { --acc:#C98A1E; --acc-ink:#8C5D0E; --acc-lt:#F2B64E }
+.cat-mm2h   { --acc:#02ADF2; --acc-ink:#0075A6; --acc-lt:#5FCDF8 }
+
+/* the section headers: the photograph washed in the category's colour, a rule in it underneath */
+.opener[class*="cat-"]{ border-bottom:4px solid var(--acc) }
+.opener[class*="cat-"] .n::after{ background:var(--acc-lt) }
+.opener[class*="cat-"] .stats{ border-top-color:color-mix(in srgb, var(--acc-lt) 55%, transparent) }
+
+/* the content: a faint wash of the colour, and the house pattern in it, hanging from the top and fading */
+.chapter[class*="cat-"]{ position:relative; overflow:hidden; background:color-mix(in srgb, var(--acc) 4%, #fff) }
+.chapter[class*="cat-"] > .wrap{ position:relative; z-index:1 }
+.chapter .catfronds{ bottom:auto; height:640px; align-items:flex-start; color:var(--acc); opacity:.14;
+  -webkit-mask-image:linear-gradient(#000 0%, rgba(0,0,0,.5) 45%, transparent 100%);
+  mask-image:linear-gradient(#000 0%, rgba(0,0,0,.5) 45%, transparent 100%) }
+.chapter .catfronds svg{ transform:scaleY(-1) }
+:where(.chapter[class*="cat-"]) .eyebrow{ color:var(--acc-ink) }
+:where(.chapter[class*="cat-"]) .more{ color:var(--acc-ink) }
+
+/* the tabs: the number in the colour, and a short bar under each that runs the full width when its section is on screen */
+.chapnav a[class*="cat-"]{ position:relative; border-bottom-color:transparent !important }
+.chapnav a[class*="cat-"] span{ color:var(--acc-ink) }
+.chapnav a[class*="cat-"]::after{ content:""; position:absolute; left:0; bottom:-1px; width:26px; height:3px; background:var(--acc);
+  transition:width .45s cubic-bezier(.2,.7,.2,1) }
+.chapnav a[class*="cat-"]:hover::after, .chapnav a[class*="cat-"].on::after{ width:100% }
+.chapnav a[class*="cat-"].on{ color:var(--acc-ink) }
+@media (max-width:900px){ .chapnav a[class*="cat-"]::after{ left:50%; transform:translateX(-50%) } }
+
+/* the four columns at the top of Portfolio and on the homepage */
+.cols4 .col[class*="cat-"] .n::after{ background:var(--acc-lt) }
+.cols4 .col[class*="cat-"]::before{ content:""; position:absolute; left:0; right:0; bottom:0; z-index:2; height:4px; background:var(--acc);
+  transform:scaleX(.18); transform-origin:left; transition:transform .5s cubic-bezier(.2,.7,.2,1) }
+.cols4 .col[class*="cat-"]:hover::before{ transform:scaleX(1) }
+
+/* MM2H in its own blue throughout, as on mm2h.com */
+.cat-mm2h .btn.solid{ background:var(--acc-ink) }
+.cat-mm2h .btn.solid:hover{ background:#005E86 }
+.cat-mm2h .schemes span{ color:var(--acc-ink) }
+.cat-mm2h .schemes li{ border-top-color:color-mix(in srgb, var(--acc) 30%, var(--rule)) }
+
+/* Everything "coming with the new TEG Card" sits on the card's own red (Mike, 1 Oct 2026): the card's
+   brand colour is #8A3E44, a gradient from #9A4E54 to #552026 (the TEG Card app's notes). */
+:root{ --card:#8A3E44; --card-grad:linear-gradient(125deg,#9A4E54 0%,#7A343A 48%,#552026 100%) }
+.mperk-offers{ background:var(--card-grad); border-left:0; color:#fff }
+.mperk-offers:hover{ background:var(--card-grad); filter:brightness(1.08) }
+.mperk-offers .arr{ color:#fff }
+.mperk-offers .pof-soon, .pofs .pof-soon{ color:rgba(255,255,255,.88) }
+.mperk-offers .pof-soon i, .pofs .pof-soon i{ background:#fff; animation-name:pof-pulse-w }
+@keyframes pof-pulse-w{ 0%{ box-shadow:0 0 0 0 rgba(255,255,255,.5) } 70%{ box-shadow:0 0 0 10px rgba(255,255,255,0) } 100%{ box-shadow:0 0 0 0 rgba(255,255,255,0) } }
+.pofs{ position:relative; overflow:hidden; background:var(--card-grad); color:#fff }
+.pofs .h-sec{ color:#fff }
+.pofs .lede{ color:rgba(255,255,255,.82) }
+.pofs .pof-hint, .pofs .pof-end{ color:rgba(255,255,255,.75) }
+.pofs .pof-end b{ color:#fff }
+.pofs .pof-note{ color:#fff }
+.pofs .pol{ box-shadow:0 10px 24px rgba(30,6,10,.28) }
+
+/* ===================== Portfolio as chapters (Mike, 1 Oct 2026; replaces the tab bar) =====================
+   js/cats.js sets each header's pin offset and --cover (0 as it arrives, 1 once its content has covered it). */
+.catwrap{ position:relative; isolation:isolate }
+.catwrap > .opener{ position:sticky; top:0; z-index:0; scroll-margin-top:0 }
+.catwrap > .opener .bgm{ transform:scale(calc(1 + var(--cover, 0) * .05)); filter:brightness(calc(1 - var(--cover, 0) * .55));
+  transform-origin:50% 30%; will-change:transform }
+.catwrap > .opener .wrap{ opacity:calc(1 - var(--cover, 0) * 1.6); transform:translateY(calc(var(--cover, 0) * -48px)) }
+.catwrap > .chapter{ z-index:1; box-shadow:0 -30px 70px rgba(5,6,10,.35) }
+
+/* the progress line under the site header: four segments, one per category, each filling as you read it */
+.catrail{ position:fixed; left:0; right:0; top:0; z-index:11; display:flex; gap:4px; height:3px; pointer-events:none;
+  opacity:0; transform:translateY(-3px); transition:opacity .45s ease, transform .45s ease }
+.catrail.on{ opacity:1; transform:none }
+.catrail i{ position:relative; flex:1; background:color-mix(in srgb, var(--acc) 26%, rgba(255,255,255,.12)); overflow:hidden }
+.catrail b{ position:absolute; inset:0; background:var(--acc); transform:scaleX(0); transform-origin:left }
+
+@media (prefers-reduced-motion: reduce){
+  .catwrap > .opener .bgm, .catwrap > .opener .wrap{ transform:none; filter:none; opacity:1 }
+}
+/* corporate events (Mike, 1 Oct 2026): the Tropicana consultant as the hero, the Prince Court afternoon
+   tea large beneath it, the two smaller shots stacked beside it */
+.cmos2 .m1{ aspect-ratio:1600 / 1068 }
+.cmos2 .m2{ grid-column:1 / span 2; grid-row:2 / span 2; aspect-ratio:1600 / 1066; height:100% }
+.cmos2 .m3, .cmos2 .m4{ grid-column:3; aspect-ratio:auto; height:100%; min-height:0 }
+.cmos2 .m3{ grid-row:2 } .cmos2 .m4{ grid-row:3 }
+
+/* ===================== Section headers, final (Mike, 1 Oct 2026) =====================
+   Every category's header as Digital first had it, which Mike liked: a calm, flat field of the
+   category's colour and one object beside the type (Print: the three newest Expat covers; Digital:
+   ExpatGo scrolling on a tilted screen; Events: three evenings as prints; MM2H: mm2h.com scrolling).
+   No photographs washed in colour, and no fades. The object sits at the right edge of the page's
+   content width, so on a wide screen it stays beside the type instead of drifting to the edge. */
+.opener[class*="cat-"] .bgm{ background:color-mix(in srgb, var(--acc) 40%, #05060A) }
+.opener[class*="cat-"] .bgm::before, .opener[class*="cat-"] .bgm::after{ display:none }
+.opener[class*="cat-"] .stats{ max-width:700px; column-gap:48px }
+.opener[class*="cat-"] .stats li + li::before{ left:-24px }
+.opener[class*="cat-"] .bgm.scrollbg > img{ left:auto; right:max(24px, calc((100vw - var(--wrap)) / 2 + 20px)); width:480px; top:-6% }
+.opener .obj{ position:absolute; top:50%; right:max(24px, calc((100vw - var(--wrap)) / 2 + 30px)); width:460px; height:440px;
+  transform:translateY(-52%); pointer-events:none }
+.opener .obj img{ position:absolute; display:block; box-shadow:0 34px 70px rgba(0,0,0,.5); animation:objfloat 7s ease-in-out infinite alternate }
+@keyframes objfloat{ from{ translate:0 0 } to{ translate:0 -12px } }
+/* Print: the newest cover in front, the two before it fanned behind */
+.obj.covers img{ width:240px; height:auto; border-radius:2px }
+.obj.covers .s1{ left:110px; top:28px; z-index:3; width:262px; rotate:-3deg }
+.obj.covers .s2{ left:0; top:78px; z-index:2; rotate:-12deg; animation-delay:-2.3s }
+.obj.covers .s3{ left:214px; top:64px; z-index:1; rotate:9deg; animation-delay:-4.6s }
+/* Events: three evenings laid like prints */
+.obj.prints img{ width:272px; aspect-ratio:4 / 3; object-fit:cover; border:9px solid #fff }
+.obj.prints .p1{ left:0; top:44px; z-index:1; rotate:-7deg }
+.obj.prints .p2{ left:176px; top:0; z-index:2; rotate:5deg; animation-delay:-2.3s }
+.obj.prints .p3{ left:96px; top:196px; z-index:3; rotate:-2deg; animation-delay:-4.6s }
+@media (max-width:1100px){ .opener .obj{ width:400px; right:-20px } .obj.covers img, .obj.prints img{ scale:.86 } }
+@media (max-width:900px){
+  .opener[class*="cat-"] .stats{ max-width:none }
+  .opener .obj, .opener[class*="cat-"] .bgm.scrollbg > img{ opacity:.18 }
+  .opener .obj{ right:-120px }
+}
+@media (prefers-reduced-motion: reduce){ .opener .obj img{ animation:none } }
+/* calmer fields (Mike: the colour was overbearing): each mixed deep, Digital's navy kept as he liked it */
+.cat-print  { --field:color-mix(in srgb, #C8102E 30%, #08070A) }
+.cat-digital{ --field:color-mix(in srgb, #1A4195 40%, #05060A) }
+.cat-events { --field:color-mix(in srgb, #C98A1E 22%, #0A0806) }
+.cat-mm2h   { --field:color-mix(in srgb, #02ADF2 30%, #05080C) }
+.opener[class*="cat-"] .bgm{ background:var(--field) }
+/* the objects sit a little further right, clear of the figures at laptop widths */
+.opener .obj{ right:max(16px, calc((100vw - var(--wrap)) / 2 - 10px)) }
+/* MM2H's figures are words, so they take a size that fits three across */
+.opener.cat-mm2h .stats b{ font-size:36px }
+/* Portfolio's Events header: five smaller prints (Mike, 1 Oct 2026: more photos, less space) */
+.obj.prints{ height:380px }
+.obj.prints img{ width:196px; border-width:7px; box-shadow:0 24px 50px rgba(0,0,0,.5) }
+.obj.prints .p1{ left:0; top:78px; rotate:-8deg; z-index:2 }
+.obj.prints .p2{ left:146px; top:4px; rotate:4deg; z-index:1; animation-delay:-1.4s }
+.obj.prints .p3{ left:262px; top:72px; rotate:9deg; z-index:2; animation-delay:-2.8s }
+.obj.prints .p4{ left:50px; top:206px; rotate:3deg; z-index:3; animation-delay:-4.2s }
+.obj.prints .p5{ left:220px; top:198px; rotate:-5deg; z-index:4; animation-delay:-5.6s }
+/* the Events gallery rows are longer now, so they run slower to keep the same pace */
+.mrow .track{ animation-duration:100s }
+.mrow.rev .track{ animation-duration:115s }
+
+/* ===================== Contact: how to reach us (Mike, 1 Oct 2026) =====================
+   WhatsApp first, as TEG prefers it: one tap opens a chat, and on a computer the QR code hands it to
+   a phone. The rest each get an icon and are one tap too (call, email, map). WhatsApp's own greens are
+   used only on its card: #25D366 for the mark, #128C7E behind white type (it reads; #25D366 does not). */
+.reach{ display:flex; flex-direction:column; gap:20px }
+.wa-card{ display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:28px; padding:30px 32px;
+  background:#F1FAF4; border:1px solid rgba(18,140,126,.2); border-left:4px solid #25D366; color:var(--ink);
+  transition:box-shadow .3s, transform .3s }
+.wa-card:hover{ box-shadow:0 24px 50px rgba(18,140,126,.16); transform:translateY(-2px) }
+.wa-main{ display:block }
+.wa-mark{ display:block; width:44px; height:44px; color:#25D366; margin-bottom:16px }
+.wa-card .eyebrow{ color:#128C7E }
+.wa-card b{ display:block; margin-top:6px; font-family:var(--display); font-weight:800; font-size:24px; line-height:1.2 }
+.wa-sub{ display:block; margin-top:8px; color:var(--soft); font-size:15.5px; line-height:1.55 }
+.wa-btn{ margin-top:20px; background:#128C7E; border-color:#128C7E; color:#fff }
+.wa-card:hover .wa-btn{ background:#075E54; border-color:#075E54 }
+.wa-qr{ display:flex; flex-direction:column; align-items:center; gap:10px; padding:14px 14px 12px; background:#fff; border-radius:10px;
+  box-shadow:0 8px 24px rgba(11,11,13,.08) }
+.wa-qr .qr{ display:block; width:124px; height:124px }
+.wa-qr i{ font-style:normal; font-size:12px; color:var(--soft) }
+.ways3{ list-style:none; margin:0; padding:0; border-top:1px solid var(--rule) }
+.ways3 a{ display:flex; align-items:flex-start; gap:18px; padding:20px 14px; border-bottom:1px solid var(--rule); color:var(--ink); transition:background .2s }
+.ways3 a:hover{ background:var(--warm) }
+.ways3 .ic{ flex:none; width:42px; height:42px; padding:10px; border-radius:50%; background:var(--warm); color:var(--red); transition:background .2s, color .2s }
+.ways3 a:hover .ic{ background:var(--red); color:#fff }
+.ways3 small{ display:block; font-family:var(--display); font-weight:700; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--red) }
+.ways3 b{ display:block; margin-top:4px; font-weight:600; font-size:19px; color:var(--ink); overflow-wrap:anywhere }
+.ways3 em{ display:block; margin-top:3px; font-style:normal; font-size:14.5px; line-height:1.5; color:var(--soft) }
+@media (max-width:640px){
+  .wa-card{ grid-template-columns:1fr; padding:24px 22px }
+  .wa-qr{ display:none }
+  .wa-btn{ width:100%; justify-content:center }
+  .ways3 a{ padding:18px 6px; gap:14px }
+}
+/* the red contact band's number, WhatsApp and email are links now */
+.contact .ways b a{ color:inherit }
+.contact .ways b a:hover{ text-decoration:underline; text-underline-offset:4px }
+.wa-sub .num{ white-space:nowrap }
+/* Events' prints, larger and uncropped, so each shows the whole room */
+.opener .obj.prints{ width:600px; height:470px }
+.obj.prints img{ width:250px; height:auto; aspect-ratio:auto; border-width:8px }
+.obj.prints .p1{ left:0; top:84px; rotate:-7deg; z-index:2 }
+.obj.prints .p2{ left:196px; top:0; rotate:4deg; z-index:1 }
+.obj.prints .p3{ left:334px; top:90px; rotate:8deg; z-index:2 }
+/* the lower two start right of the WhiskyPLUS and Expressions logos (Mike: they crowded Expressions) */
+.obj.prints .p4{ left:132px; top:262px; rotate:3deg; z-index:3 }
+.obj.prints .p5{ left:344px; top:256px; rotate:-5deg; z-index:4 }
+/* on narrower screens the whole arrangement scales down from its right edge instead of reflowing */
+@media (max-width:1100px){
+  .opener .obj{ right:-30px; scale:.72; transform-origin:100% 50% }
+  .obj.covers img, .obj.prints img{ scale:1 }
+  .opener .obj.prints{ width:600px }
+}
+.opener.cat-print .stats{ max-width:640px }
+.opener .obj.prints{ transform:translateY(-46%) }
+@media (max-width:900px){ .opener .obj{ opacity:.12 } }
+
+/* Print's header (Mike, 1 Oct 2026: the scattered covers looked messy). Every title in a Cover Flow:
+   one cover facing, three either side angled towards it like a row of shelves, all the same size,
+   turning slowly (js/cats.js). Further covers sit a little darker, and a faint reflection gives
+   them a surface to stand on. data-pos is each cover's place; beyond three, a cover is hidden. */
+.opener .obj.flow{ width:640px; height:440px; perspective:1100px; transform:translateY(-54%);
+  animation:objfloat 7s ease-in-out infinite alternate }
+.obj.flow img{ left:50%; top:50%; width:200px; height:auto; aspect-ratio:400 / 568; object-fit:cover; margin:-150px 0 0 -100px;
+  border-radius:2px; box-shadow:0 26px 50px rgba(0,0,0,.45); animation:none; opacity:0;
+  transform:translateX(0) translateZ(-420px) rotateY(0); filter:brightness(.4);
+  transition:transform 1.3s cubic-bezier(.45,0,.2,1), filter 1.3s, opacity 1.3s;
+  -webkit-box-reflect:below 4px linear-gradient(transparent 78%, rgba(255,255,255,.14)) }
+.obj.flow [data-pos="0"]{ opacity:1; transform:translateX(0) translateZ(0) rotateY(0); filter:none; z-index:7 }
+.obj.flow [data-pos="1"]{ opacity:1; transform:translateX(166px) translateZ(-120px) rotateY(-44deg); filter:brightness(.84); z-index:6 }
+.obj.flow [data-pos="-1"]{ opacity:1; transform:translateX(-166px) translateZ(-120px) rotateY(44deg); filter:brightness(.84); z-index:6 }
+.obj.flow [data-pos="2"]{ opacity:1; transform:translateX(246px) translateZ(-200px) rotateY(-44deg); filter:brightness(.68); z-index:5 }
+.obj.flow [data-pos="-2"]{ opacity:1; transform:translateX(-246px) translateZ(-200px) rotateY(44deg); filter:brightness(.68); z-index:5 }
+.obj.flow [data-pos="3"]{ opacity:1; transform:translateX(322px) translateZ(-280px) rotateY(-44deg); filter:brightness(.54); z-index:4 }
+.obj.flow [data-pos="-3"]{ opacity:1; transform:translateX(-322px) translateZ(-280px) rotateY(44deg); filter:brightness(.54); z-index:4 }
+.obj.flow [data-pos="4"]{ transform:translateX(390px) translateZ(-360px) rotateY(-44deg); z-index:3 }
+.obj.flow [data-pos="-4"], .obj.flow [data-pos="-5"]{ transform:translateX(-390px) translateZ(-360px) rotateY(44deg); z-index:3 }
+@media (max-width:1360px){ .opener .obj.flow{ scale:.9; transform-origin:100% 50% } }
+@media (max-width:1100px){ .opener .obj.flow{ width:640px; right:-6px; scale:.64; transform:translateY(-80%) } }
+@media (max-width:900px){ .opener .obj.flow{ transform:translateY(-50%) } }
+@media (prefers-reduced-motion: reduce){ .opener .obj.flow{ animation:none } .obj.flow img{ transition:none } }
+
+/* ===================== Mobile audit (2 Oct 2026) =====================
+   Fixes from a pass over every page at 320, 360, 390, 430, 768 and 1024px wide. */
+
+/* big figures that ran past their column: the home and Advertise figure bands on small phones and at
+   1024, Portfolio's headers at 1024, and MM2H's "MM2H961", which ran off the edge on phones */
+@media (max-width:1100px) and (min-width:901px){ .a .figs b{ font-size:48px } }
+@media (max-width:560px){ .a .figs b{ font-size:min(42px, 10vw) } }
+@media (max-width:1100px){ .opener .stats b{ font-size:38px } .opener.cat-mm2h .stats b{ font-size:30px } }
+@media (max-width:900px){ .opener .stats b{ font-size:34px } }
+@media (max-width:560px){
+  .opener[class*="cat-"] .stats{ grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:20px }
+  .opener .stats b, .opener.cat-mm2h .stats b{ font-size:min(28px, 7.2vw) }
+}
+
+/* small labels: nothing under 11px on a phone (issue months under the covers, the guide years,
+   the "Every month" tags on the evening photos) */
+@media (max-width:900px){
+  .iss span, .eds .iss span{ font-size:11px; letter-spacing:.08em }
+  .even .im i{ font-size:11px }
+}
+
+/* text links ("Read the 2026 edition", "Explore", the band's phone and email) are easy to miss with a
+   finger: on touch screens each one answers taps a little beyond its letters, without moving anything */
+@media (pointer:coarse){
+  .more, .contact .ways b a{ position:relative }
+  .more::after, .contact .ways b a::after{ content:""; position:absolute; inset:-12px -6px }
+}
+
+/* Portfolio's Digital header on phones: the ExpatGo screen sits fainter, so its own headlines do not
+   read through the figures */
+@media (max-width:900px){ .opener[class*="cat-"] .bgm.scrollbg > img{ opacity:.1 } }
+
+/* the Events hero on phones: the crowd photo is busy behind the words, so the shade is deeper */
+@media (max-width:640px){ .phero.evhero .shade{ background:linear-gradient(to top, rgba(11,11,13,.94) 0%, rgba(11,11,13,.78) 55%, rgba(11,11,13,.45) 100%) } }
+
+/* never larger than the pixels: the team portraits are 400x270, so the grid keeps
+   every photo under 216x270 (six across on a computer, four on a tablet, three or two on a phone); the film posters are 960x540, so their boxes stay within 540px tall; the ExpatGo
+   screen on the Portfolio page is 720px wide */
+.people{ grid-template-columns:repeat(6,minmax(0,1fr)); gap:44px 22px }
+@media (max-width:999px){ .people{ grid-template-columns:repeat(4,minmax(0,1fr)); gap:36px 28px } }
+@media (max-width:599px){ .people{ grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px 14px } .people b{ font-size:14.5px } .people span{ font-size:13px } }
+@media (max-width:479px){ .people{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:30px 16px } .people b{ font-size:16px } .people span{ font-size:14px } }
+.fpost{ min-height:540px }
+.dfeat .browser{ max-width:720px }
+/* Advertise packages: one per row on small phones, instead of two narrow columns of two-word lines */
+@media (max-width:479px){ .ladder{ grid-template-columns:1fr } .ladder li:nth-child(n){ min-height:0 } }
+/* the homepage's four portfolio cards on phones show their description line, so the words reach further
+   up the picture: the shade below them starts higher and runs deeper (ExpatGo's own headlines showed
+   through the Digital card's text) */
+@media (max-width:900px){
+  .cols4 .col::after{ background:linear-gradient(to bottom, rgba(5,6,10,.45) 0%, rgba(5,6,10,0) 20%, rgba(5,6,10,.6) 44%, rgba(5,6,10,.95) 72%) }
+  .cols4 .col.cat-digital::after{ background:linear-gradient(to bottom, rgba(5,6,10,.5) 0%, rgba(5,6,10,.1) 18%, rgba(5,6,10,.8) 40%, rgba(5,6,10,.97) 64%) }
+}
+/* the phone menu: it scrolls on short phones (Contact fell below an iPhone SE's screen), and the page
+   behind it stays still while it is open */
+.menu{ overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch }
+body.menu-open{ overflow:hidden }
+
+/* Portfolio: EatDrink (Chad, 6 Oct 2026), beside ExpatGo. Its logo comes on its own orange, so the
+   panel carries that orange and the logo sits in it unscaled beyond its 704px. */
+.edfeat{ display:grid; grid-template-columns:1fr 1.1fr; gap:70px; align-items:center; margin-top:28px;
+  background:var(--warm); padding:64px; scroll-margin-top:130px }
+.edlogo{ display:flex; align-items:center; justify-content:center; background:#F17305; aspect-ratio:4 / 3;
+  border-radius:4px; box-shadow:0 30px 60px rgba(20,20,30,.18); transition:transform .5s cubic-bezier(.2,.7,.2,1) }
+.edlogo:hover{ transform:translateY(-4px) }
+.edlogo img{ display:block; width:86%; max-width:704px; height:auto }
+.edfeat .h-sec{ font-size:40px; margin-top:12px }
+.edfeat .h-sec .serif{ display:block }
+.edfeat .lede{ margin-top:16px }
+.edfeat .txt > p:not(.lede){ margin-top:14px; color:var(--soft) }
+.edfeat .cta{ display:flex; gap:14px; flex-wrap:wrap; margin-top:30px }
+.btn.solid.ed{ background:#F17305; border-color:#F17305 }
+.btn.solid.ed:hover{ background:#D66503; border-color:#D66503 }
+@media (max-width:900px){ .edfeat{ grid-template-columns:1fr; gap:36px; padding:44px } .edfeat .h-sec{ font-size:32px } }
+@media (max-width:560px){ .edfeat{ padding:28px 20px } .edlogo{ aspect-ratio:16 / 9 } }
+/* the WhiskyPLUS flagship now carries a second paragraph */
+.flag .body .lede + p{ margin-top:14px; color:rgba(255,255,255,.72); line-height:1.6 }
+#whiskyplus.flag .body{ padding-top:44px; padding-bottom:44px }
+#whiskyplus.flag .mark.wp{ width:min(100%,320px); margin-bottom:26px }
+@media (max-width:1100px) and (min-width:1001px){ .flag{ grid-template-columns:1fr 1.1fr } #whiskyplus.flag .body{ padding-left:44px; padding-right:44px } }
+/* the flagships stack a little earlier than other rows, so the WhiskyPLUS film still is never shown
+   taller than its 720 pixels */
+@media (max-width:1000px){
+  .flag{ grid-template-columns:1fr; min-height:0 }
+  .flag.flip .media{ order:0 }
+  .flag .media{ min-height:300px }
+}
+
+/* Events: Chad's full WhiskyPLUS write-up under the flagship, in the same dark panel */
+.flagmore{ background:#131418; color:#fff; padding:52px 60px 56px; border-top:1px solid rgba(255,255,255,.08) }
+.flagmore h3{ font-family:var(--display); font-weight:800; font-size:30px; line-height:1.15 }
+.flagmore h3 .serif{ font-family:var(--serif); font-style:italic; font-weight:400 }
+.flagmore .cols{ columns:3 260px; column-gap:44px; margin-top:24px }
+.flagmore p{ break-inside:avoid; margin:0 0 18px; color:rgba(255,255,255,.76); font-size:16px; line-height:1.7 }
+.flagmore a{ color:#fff; text-decoration:underline; text-underline-offset:3px }
+@media (max-width:900px){ .flagmore{ padding:36px 24px 30px } .flagmore h3{ font-size:26px } }
+/* Portfolio: the EatDrink text is longer now, so the logo panel stays at the top of its column */
+.edfeat{ align-items:start }
+.edfeat .txt > p:not(.lede){ font-size:16px; line-height:1.7 }
+.edfeat .txt > p.lede{ font-size:17px; line-height:1.7 }
+@media (min-width:901px){ .edlogo{ position:sticky; top:120px } }
+/* About WhiskyPLUS (Mike, 6 Oct 2026: unsure about three columns): heading on the left, the
+   write-up in one readable column on the right */
+.flagmore{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,2fr); gap:56px; padding:60px 60px 48px }
+.flagmore .cols{ columns:auto; max-width:680px; margin-top:0 }
+.flagmore p{ font-size:17px; line-height:1.75; margin-bottom:20px }
+@media (min-width:901px){ .flagmore h3{ position:sticky; top:120px; align-self:start } }
+@media (max-width:900px){ .flagmore{ grid-template-columns:1fr; gap:20px; padding:36px 24px 26px } .flagmore p{ font-size:16px } }
+
+/* ===================== Privacy notice (IT review, 7 Oct 2026) ===================== */
+.legalhero{ min-height:0; padding-bottom:64px }
+.legal{ background:#fff; padding:72px 0 110px }
+.legalin{ max-width:820px }
+.legal .upd{ font-family:var(--display); font-weight:700; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--grey) }
+.legal h2{ font-family:var(--display); font-weight:800; font-size:24px; line-height:1.25; margin:44px 0 12px }
+.legal p, .legal li{ font-size:17px; line-height:1.75; color:var(--soft) }
+.legal p + p{ margin-top:12px }
+.legal ul{ list-style:none; margin:0; padding:0 }
+.legal li{ position:relative; padding-left:22px; margin-top:10px }
+.legal li::before{ content:""; position:absolute; left:0; top:.8em; width:10px; height:2px; background:var(--red) }
+.legal li b{ color:var(--ink) }
+.legal a{ color:var(--red); text-decoration:underline; text-underline-offset:3px }
+@media (max-width:640px){ .legal{ padding:48px 0 80px } .legal h2{ font-size:21px; margin-top:34px } .legal p, .legal li{ font-size:16px } }
+/* the line about privacy above the contact form's button, and the footer link */
+.enq .pnote{ font-size:14px; line-height:1.55; color:var(--soft); margin:6px 0 16px }
+.enq .pnote a{ color:var(--red); text-decoration:underline; text-underline-offset:3px }
+.foot .base a{ color:inherit; text-decoration:underline; text-underline-offset:3px }

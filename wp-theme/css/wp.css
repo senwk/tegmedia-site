@@ -1,0 +1,146 @@
+/* WordPress additions to the Heritage design: room for the admin bar, the dark band at the top
+   of shop and other WordPress pages, and the plain content below it. */
+
+/* the header sits over the page; move it below the admin bar for anyone logged in */
+.admin-bar.a .top, .admin-bar.a .top.stuck{ top:32px }
+@media (max-width:782px){ .admin-bar.a .top, .admin-bar.a .top.stuck{ top:46px } }
+@media (max-width:600px){ .admin-bar.a .top.stuck{ top:0 } }
+
+/* the contact form's hidden bot trap, and its error notice */
+.enq .hp{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden }
+.enq .sent.err{ color:var(--red) }
+
+/* the band: a short version of the dark page hero, with or without a title */
+.phero.wpb{ height:auto; min-height:0 }
+.phero.wpb .in{ padding-top:190px; padding-bottom:60px }
+.phero.wpb.slim .in{ padding-top:128px; padding-bottom:0 }
+.phero.wpb h1{ margin-top:14px }
+.phero.wpb h1 .sans{ font-size:52px }
+@media (max-width:900px){
+  .phero.wpb{ min-height:0 }
+  .phero.wpb .in{ padding-top:150px; padding-bottom:40px }
+  .phero.wpb.slim .in{ padding-top:104px; padding-bottom:0 }
+  .phero.wpb h1 .sans{ font-size:36px }
+}
+
+/* the content under it */
+.wp-body{ padding-top:64px; padding-bottom:96px }   /* top and bottom only: the sides keep .wrap's gutter */
+.wp-body.prose{ max-width:820px; font-size:17px; line-height:1.75 }
+.wp-body.prose > * + *{ margin-top:1.1em }
+.wp-body.prose h2{ font-family:var(--display); font-weight:800; font-size:28px; line-height:1.2; margin-top:1.6em }
+.wp-body.prose h3{ font-family:var(--display); font-weight:700; font-size:21px; margin-top:1.4em }
+.wp-body.prose a{ color:var(--red); text-decoration:underline; text-underline-offset:3px }
+.wp-body.prose img{ max-width:100%; height:auto }
+.wp-body.prose ul, .wp-body.prose ol{ padding-left:1.3em }
+.wp-list article{ padding:26px 0; border-top:1px solid var(--rule) }
+.wp-list article .date{ font-size:13px; letter-spacing:.08em; text-transform:uppercase; opacity:.6 }
+.wp-list article h2{ margin-top:6px; font-size:24px }
+.wp-list article h2 a{ color:inherit; text-decoration:none }
+.wp-list article p{ margin-top:8px }
+.wp-body.prose ul{ list-style:disc }
+.wp-body.prose ol{ list-style:decimal }
+.phero.wpb.slim .in{ padding-bottom:22px }
+@media (max-width:900px){ .phero.wpb.slim .in{ padding-bottom:18px } }
+
+/* WooCommerce's own buttons and prices in the site's colours; the checkout itself is unchanged */
+.wc-body .button, .wc-body button.button, .wc-body a.button, .wc-body input.button,
+.wc-body .single_add_to_cart_button, .wc-body .checkout-button{
+  background:var(--red) !important; color:#fff !important; border-radius:0 !important;
+  font-family:var(--display); font-weight:700; font-size:13px; letter-spacing:.08em; text-transform:uppercase; padding:14px 22px !important }
+.wc-body .button:hover, .wc-body .single_add_to_cart_button:hover{ background:#a50d25 !important }
+.wc-body .price, .wc-body .amount{ color:var(--black) !important }
+
+/* Shop plugins (ShopLentor's quick view, the compare pop-up, WooCommerce's image lightbox) print
+   hidden pop-ups after the footer of every page. On the designed pages their styles are not loaded,
+   so their buttons showed as empty boxes; they are only needed in the shop, where they stay. */
+body.a:not(.pg-shop):not(.pg-wp) > .foot ~ :not(#wpadminbar){ display:none !important }
+
+/* ------- Product pages (teg_product_page): the Membership hero's band, then the order form ------- */
+.prodhero{ padding:170px 0 90px }
+.prodhero .memtxt h1 .sans{ font-size:60px }
+.prodprice{ margin-top:22px; font-family:var(--display); font-weight:800; font-size:40px; letter-spacing:-.02em; color:#fff }
+.prodprice small{ font-family:var(--serif); font-style:italic; font-weight:400; font-size:22px; letter-spacing:0; color:rgba(255,255,255,.8) }
+.prodprice del{ opacity:.5; font-size:.6em; margin-right:10px }
+.prodhero .memtxt .cta{ margin-top:28px }
+.prodimg img{ display:block; max-width:420px; width:100%; height:auto; margin-left:auto; box-shadow:0 40px 80px rgba(0,0,0,.5) }
+
+.prodbuy{ padding:90px 0 110px; background:#fff; scroll-margin-top:20px }
+.prodbuyin{ display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr); gap:72px; align-items:start }
+.prodbuyin.solo{ grid-template-columns:minmax(0,720px); justify-content:center }
+.prodform > h2{ font-family:var(--display); font-weight:800; font-size:32px; letter-spacing:-.01em; margin-bottom:28px }
+.prodform .woocommerce-notices-wrapper:not(:empty){ margin-bottom:24px }
+.prodform .woocommerce-message, .prodform .woocommerce-error, .prodform .woocommerce-info{ list-style:none; padding:16px 20px; background:var(--warm); border-left:4px solid var(--red) }
+.prodform .woocommerce-message .button{ float:right; color:var(--red); font-weight:700; text-decoration:underline }
+
+/* the fields Advanced Product Fields adds: the site's own form look */
+.prodform .wapf-field-row{ margin-bottom:20px }
+.prodform .wapf-field-label label{ display:block; margin-bottom:8px; font-family:var(--display); font-weight:700; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink) }
+.prodform .wapf-field-label abbr{ color:var(--red); text-decoration:none; border:0; margin-left:2px }
+.prodform input[type=text], .prodform input[type=email], .prodform input[type=tel], .prodform input[type=number], .prodform textarea, .prodform select{
+  display:block; width:100%; padding:14px 16px; border:1px solid rgba(21,23,28,.24); border-radius:0; background:#fff;
+  font:inherit; font-size:16px; color:var(--ink); transition:border-color .2s, box-shadow .2s }
+.prodform textarea{ min-height:110px; resize:vertical }
+.prodform input:focus, .prodform textarea:focus, .prodform select:focus{ outline:0; border-color:var(--ink); box-shadow:0 0 0 3px rgba(200,16,46,.15) }
+.prodform .wapf-checkable{ margin-bottom:10px }
+.prodform .wapf-input-label{ display:flex; align-items:flex-start; gap:14px; padding:16px 18px; border:1px solid rgba(21,23,28,.2);
+  cursor:pointer; line-height:1.5; transition:border-color .2s, background .2s }
+.prodform .wapf-input-label:hover{ border-color:var(--ink) }
+.prodform .wapf-input-label:has(input:checked){ border-color:var(--red); background:#FDF4F5 }
+.prodform input[type=radio], .prodform input[type=checkbox]{ flex:none; width:18px; height:18px; margin-top:3px; accent-color:var(--red) }
+.prodform .wapf-pricing-hint{ margin-left:6px; color:var(--red); font-weight:700; white-space:nowrap }
+.prodform .wapf-product-totals{ margin:28px 0 24px; padding:20px 24px; background:var(--warm) }
+.prodform .wapf--inner > div{ display:flex; justify-content:space-between; gap:20px; padding:6px 0; color:var(--soft) }
+.prodform .wapf--inner > div:last-child{ margin-top:8px; padding-top:14px; border-top:1px solid var(--rule); color:var(--ink); font-weight:700 }
+.prodform .wapf-product-totals .price, .prodform .wapf-product-totals .amount{ color:var(--ink) !important; font-family:var(--display); font-weight:700; font-size:16px }
+.prodform .wapf--inner > div:last-child .price{ font-size:22px; font-weight:800 }
+
+/* quantity and the button */
+.prodform form.cart{ display:flex; flex-wrap:wrap; align-items:stretch; gap:12px }
+.prodform form.cart > .wapf{ flex-basis:100% }
+.prodform .quantity input.qty{ width:84px; height:100%; text-align:center }
+.prodform .single_add_to_cart_button, .prodform .single_add_to_cart_button.button.alt{ flex:1; min-width:220px; padding:18px 30px !important; border:0; border-radius:0 !important; background:var(--red) !important; color:#fff !important; cursor:pointer;
+  font-family:var(--display); font-weight:700; font-size:14px; letter-spacing:.08em; text-transform:uppercase; transition:background .2s }
+.prodform .single_add_to_cart_button:hover{ background:#a50d25 !important }
+.prodform .wishsuite-btn, .prodform .htcompare-btn, .prodform .woolentor-compare, .prodform .wl-cart-icon{ display:none !important }
+
+/* beside the form, on the TEG Card */
+.prodside{ position:sticky; top:100px; padding:34px 32px; background:var(--black); color:#fff }
+.prodside h3{ font-family:var(--display); font-weight:800; font-size:20px }
+.prodside ul{ list-style:none; padding:0; margin:20px 0 0 }
+.prodside li{ padding:14px 0; border-top:1px solid rgba(255,255,255,.14) }
+.prodside li b{ display:block; font-family:var(--display); font-weight:800; font-size:24px; letter-spacing:-.01em }
+.prodside li span{ display:block; margin-top:2px; font-size:14.5px; color:rgba(255,255,255,.75) }
+.prodside p{ margin-top:18px; font-size:14.5px; line-height:1.6; color:rgba(255,255,255,.75) }
+.prodside .links{ display:flex; flex-wrap:wrap; gap:8px 20px }
+.prodside .links a{ color:#fff; font-weight:700; text-decoration:underline; text-underline-offset:3px }
+.prodside .links a:hover{ color:var(--red-lt) }
+
+@media (max-width:900px){
+  .prodhero{ padding:130px 0 64px }
+  .prodhero .memtxt h1 .sans{ font-size:42px }
+  .prodprice{ font-size:32px }
+  .prodimg img{ max-width:300px; margin:0 auto }
+  .prodbuy{ padding:60px 0 80px }
+  .prodbuyin{ grid-template-columns:1fr; gap:40px }
+  .prodside{ position:static }
+}
+/* "coming with the new TEG Card" on the card's own red */
+.prodside li.soon{ margin:10px -16px 0; padding:16px; border-top:0; background:var(--card-grad) }
+.prodside li.soon + li{ border-top:0 }
+
+/* phones: every form field at 16px or more, so iPhones do not zoom in when one is tapped (the shop's
+   sort menu, the account login and a checkout field were 13px) */
+@media (max-width:900px){
+  input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=button]), select, textarea{ font-size:16px !important }
+}
+
+/* WooCommerce's block cart and checkout draw their own buttons ("Proceed to Checkout", "Place Order"),
+   which the shop's other button rules do not reach: the same TEG red */
+.wc-body .wc-block-components-button:not(.is-link):not(.wc-block-components-quantity-selector__button),
+.wc-body .wc-block-cart__submit-button, .wc-body .wc-block-components-checkout-place-order-button{
+  background:var(--red) !important; color:#fff !important; border-color:var(--red) !important }
+.wc-body .wc-block-components-button:not(.is-link):not(.wc-block-components-quantity-selector__button):hover{ background:#a50d25 !important }
+
+/* the privacy line under the product form */
+.prodform .pnote{ font-size:14px; line-height:1.55; color:var(--soft); margin-top:16px }
+.prodform .pnote a{ color:var(--red); text-decoration:underline; text-underline-offset:3px }

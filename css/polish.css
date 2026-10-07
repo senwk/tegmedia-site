@@ -1,0 +1,441 @@
+/* ===========================================================================
+   HERITAGE, second pass (Mike, 29 Sep 2026): The Expat promoted to the core
+   product under the hero, real covers from Calameo everywhere, and a polish
+   pass over spacing, wrapping and cropping. Loads last.
+   =========================================================================== */
+
+/* every cover on the site is a real portrait cover now, so nothing is cropped
+   to fit: the box takes the cover's own proportion */
+.iss{ display:block; position:relative }
+.iss img{ display:block; width:100%; height:auto; aspect-ratio:1004/1425; object-fit:cover;
+          box-shadow:0 18px 36px rgba(0,0,0,.45); transition:transform .3s ease, box-shadow .3s ease }
+.iss:hover img{ transform:translateY(-6px); box-shadow:0 26px 46px rgba(0,0,0,.55) }
+.iss span{ display:block; margin-top:14px; font-family:var(--display); font-weight:700; font-size:11px;
+           letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.6); transition:color .2s }
+.iss:hover span{ color:#fff }
+
+/* ---------- THE EXPAT, directly under the hero ---------- */
+.a .mag{ background:var(--black); color:#fff; padding:130px 0 120px; position:relative; overflow:hidden }
+.a .mag::before{ content:""; position:absolute; left:50%; top:0; width:1px; height:70px;
+                 background:linear-gradient(var(--red),transparent) }
+.a .mag .feat{ display:grid; grid-template-columns:1fr 420px; gap:100px; align-items:center }
+.a .mag .eyebrow{ color:#fff; opacity:.7 }
+.a .mag .h-sec{ font-size:52px; max-width:560px }
+.a .mag .h-sec .serif{ display:block }
+.a .mag .lede{ color:rgba(255,255,255,.76); margin-top:24px; max-width:520px }
+.a .mag .now{ display:flex; align-items:baseline; gap:18px; margin-top:40px; padding-top:26px;
+              border-top:1px solid rgba(255,255,255,.16); max-width:520px }
+.a .mag .now span{ font-family:var(--display); font-weight:700; font-size:11px; letter-spacing:.2em;
+                   text-transform:uppercase; color:var(--red) }
+.a .mag .now b{ font-size:30px; font-weight:400 }
+.a .mag .cta{ display:flex; gap:14px; margin-top:30px; flex-wrap:wrap }
+.a .mag .big{ display:block; position:relative }
+.a .mag .big img{ width:100%; height:auto; box-shadow:0 50px 90px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.06);
+                  transform:rotate(2deg); transition:transform .4s ease }
+.a .mag .big:hover img{ transform:rotate(0) translateY(-6px) }
+.a .mag .recent{ margin-top:110px }
+.a .mag .rh{ display:flex; justify-content:space-between; align-items:baseline; padding-bottom:22px;
+             border-bottom:1px solid rgba(255,255,255,.14); margin-bottom:44px }
+.a .mag .rh > span{ font-family:var(--display); font-weight:700; font-size:12px; letter-spacing:.22em;
+                    text-transform:uppercase; color:rgba(255,255,255,.7) }
+.a .mag .rh .more{ color:#fff }
+.row6{ display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:28px; align-items:start }
+.row6 .iss:nth-child(even){ margin-top:34px }
+
+/* ---------- small things that looked unfinished ---------- */
+/* buttons never break onto two lines */
+.btn{ white-space:nowrap; flex:none }
+/* section headings: the serif half starts on its own line where it would
+   otherwise leave one word stranded */
+.a .story .h-sec .serif, .a .adv .h-sec .serif, .a .brands .h-sec .serif,
+.clients-wall .h-sec .serif, .a .contact .h-sec .serif{ display:block }
+.a .story .h-sec{ font-size:46px }
+/* the founder line: name and role read as one block, the link sits right */
+.a .founder{ gap:20px }
+/* the figures band: tighter, the labels a measured width */
+.a .figs{ padding:70px 0 }
+.a .figs span{ max-width:210px }
+/* brand cards: equal text blocks */
+.a .card p{ min-height:3.2em }
+/* the advertise block's list aligns with the heading, not the eyebrow */
+.a .adv .offer{ margin-top:32px }
+/* client wall: a little more air around the logos */
+.clients-wall{ padding-top:110px }
+.note{ display:flex; gap:12px; align-items:baseline; flex-wrap:wrap }
+
+/* ---------- brands page ---------- */
+.brow .h-sec{ font-size:40px }
+.brow .h-sec .serif{ display:block }
+.brow .pic{ min-height:560px }
+.brow .cv{ height:430px; width:auto; aspect-ratio:auto }
+.brow .pic.dark .cv{ box-shadow:0 30px 70px rgba(0,0,0,.7) }
+.brow .cta .btn{ padding:16px 24px }
+
+/* ---------- The Expat page ---------- */
+.thero .cover img{ width:340px; height:auto; aspect-ratio:1004/1425 }
+.thero .h-issue{ display:block; margin-top:22px; font-family:var(--serif); font-style:italic; font-size:22px; color:#fff }
+
+/* ---------- read page ---------- */
+.latest .cover img{ height:auto; aspect-ratio:1004/1425 }
+.archive .yr{ padding-top:44px; margin-top:44px; border-top:1px solid rgba(255,255,255,.14) }
+.archive .yr:first-of-type{ margin-top:0 }
+.archive .yr h3{ font-size:34px; font-weight:400; margin-bottom:30px; color:#fff }
+.archive .agrid{ display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:40px 26px }
+.archive .agrid img{ aspect-ratio:1004/1425 }
+.covers-bg img{ aspect-ratio:1004/1425 }
+
+/* =========================== responsive =========================== */
+@media (max-width:1100px){
+  .a .mag .feat{ grid-template-columns:1fr 340px; gap:60px }
+  .row6{ grid-template-columns:repeat(3,minmax(0,1fr)); gap:34px 22px }
+  .row6 .iss:nth-child(even){ margin-top:0 }
+  .archive .agrid{ grid-template-columns:repeat(4,minmax(0,1fr)) }
+}
+@media (max-width:900px){
+  .a .mag{ padding:80px 0 70px }
+  .a .mag .feat{ grid-template-columns:1fr; gap:50px }
+  .a .mag .h-sec{ font-size:36px }
+  .a .mag .big{ order:-1; width:72%; max-width:300px; margin:0 auto }
+  .a .mag .cta{ flex-direction:column; align-items:stretch } .a .mag .cta .btn{ justify-content:center }
+  .a .mag .recent{ margin-top:64px }
+  .a .mag .rh{ flex-direction:column; gap:10px; align-items:flex-start }
+  .row6{ grid-template-columns:repeat(3,minmax(0,1fr)); gap:26px 14px }
+  .iss span{ font-size:9.5px; letter-spacing:.1em; margin-top:10px }
+  .a .story .h-sec{ font-size:32px }
+  .brow .h-sec{ font-size:32px } .brow .pic{ min-height:0 } .brow .cv{ height:300px }
+  .brow .cta{ flex-direction:column; align-items:stretch } .brow .cta .btn{ justify-content:center }
+  .thero .cover img{ width:240px }
+  .archive .agrid{ grid-template-columns:repeat(3,minmax(0,1fr)); gap:26px 14px }
+  .btn{ white-space:normal }
+}
+.a .mag::before{ display:none }
+
+/* ---------- homepage fixes, second look ---------- */
+@media (min-width:901px){ .a .story .grid{ grid-template-columns:360px 1fr; gap:80px } }
+.a .founder img{ background:var(--warm); border:1px solid var(--rule); object-position:50% 15% }
+.a .adv{ padding-bottom:70px }
+.a .clients-wall{ padding-top:70px }
+.a .clients-wall .wrap{ border-top:1px solid var(--rule); padding-top:70px }
+.clients-wall .h-sec .serif{ display:inline }
+/* HSBC's hexagon has white cut-outs that brightness(0) would fill in */
+.wall-logos img.gs{ filter:grayscale(1) contrast(1.8) }
+.wall-logos .w-xs{ width:74px }
+@media (max-width:900px){ .wall-logos .w-xs{ width:54px } }
+.a .clients-wall .wrap{ border-top:0; padding-top:0 }
+.a .clients-wall .head{ border-top:1px solid var(--rule); padding-top:70px; max-width:none }
+.brow .pic{ overflow:hidden }
+
+/* The Expat page: the recent issues, on the same black as its hero */
+.a-recent{ background:var(--black); color:#fff; padding:40px 0 110px }
+.a-recent .rh{ display:flex; justify-content:space-between; align-items:baseline; padding-bottom:22px;
+               border-bottom:1px solid rgba(255,255,255,.14); margin-bottom:44px }
+.a-recent .rh > span{ font-family:var(--display); font-weight:700; font-size:12px; letter-spacing:.22em;
+                      text-transform:uppercase; color:rgba(255,255,255,.7) }
+.a-recent .rh .more{ color:#fff }
+.a .figs.slim{ background:var(--black); border-top:1px solid rgba(255,255,255,.1) }
+/* read page */
+.archive .head .lede{ margin-top:16px; color:rgba(255,255,255,.65) }
+@media (max-width:900px){ .a-recent{ padding:20px 0 70px } .a-recent .rh{ flex-direction:column; gap:10px } }
+@media (max-width:900px){
+  .a .mag .now{ flex-direction:column; gap:6px }
+  .a .mag .now b{ font-size:26px }
+  .a .pillars > a + a{ border-left:0; padding-left:0 }
+  .thero .cta{ flex-direction:column; align-items:stretch } .thero .cta .btn{ justify-content:center }
+}
+
+/* ---------- the "30" section carries the anniversary cover ----------
+   January 2026's "30 Years of Stories" cover takes the place of the big
+   numeral: the cover has its own 30, and saying it twice would be noise. */
+.a .thirty{ display:flex; flex-direction:column; align-items:flex-start; padding-right:60px }
+.a .anniv{ display:block; width:280px }
+.a .anniv img{ width:100%; height:auto; transform:rotate(-2.5deg);
+               box-shadow:0 30px 60px rgba(20,20,30,.22), 0 0 0 1px rgba(0,0,0,.06);
+               transition:transform .35s ease }
+.a .anniv:hover img{ transform:rotate(0) translateY(-6px) }
+.a .thirty .cap{ margin-top:34px }
+.a .thirty .cap span{ display:block; font-family:var(--display); font-weight:700; font-size:11px;
+                      letter-spacing:.2em; text-transform:uppercase; color:var(--red); margin:0 }
+.a .thirty .cap b{ display:block; font-size:26px; font-weight:400; line-height:1.2; margin:6px 0 14px; color:var(--ink) }
+@media (max-width:900px){
+  .a .thirty{ align-items:center; text-align:center; padding-right:0 }
+  .a .anniv{ width:220px }
+  .a .thirty .cap{ margin-top:26px }
+}
+
+/* ---------- Past clients page ---------- */
+.phero.ink{ background:var(--black); height:560px }
+.phero.ink .fronds{ opacity:.06 }
+.phero.ink h1 .serif{ color:#fff }
+.clients-wall.first{ padding:90px 0 40px }
+.dir{ padding:90px 0 110px }
+.dgrid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0;
+        border-top:1px solid var(--rule) }
+.dgrid .sec{ padding:32px 34px 34px 0; border-bottom:1px solid var(--rule) }
+.dgrid .sec:not(:nth-child(3n+1)){ padding-left:34px; border-left:1px solid var(--rule) }
+.dgrid h3{ font-family:var(--display); font-weight:800; font-size:13px; letter-spacing:.14em;
+           text-transform:uppercase; color:var(--red) }
+.dgrid p{ margin-top:14px; font-size:15.5px; line-height:1.85; color:var(--ink) }
+.dir-cta{ background:var(--warm); padding:90px 0 }
+.dir-cta .row{ display:flex; justify-content:space-between; align-items:center; gap:40px; flex-wrap:wrap }
+.dir-cta .cta{ display:flex; gap:12px; flex-wrap:wrap }
+@media (max-width:1100px){ .dgrid{ grid-template-columns:1fr 1fr } .dgrid .sec:not(:nth-child(3n+1)){ padding-left:0; border-left:0 }
+  .dgrid .sec:nth-child(even){ padding-left:30px; border-left:1px solid var(--rule) } }
+@media (max-width:900px){
+  .phero.ink{ height:auto }
+  .dgrid{ grid-template-columns:1fr } .dgrid .sec, .dgrid .sec:nth-child(even){ padding:26px 0; border-left:0 }
+  .dir, .dir-cta{ padding:64px 0 } .dir-cta .cta{ flex-direction:column; align-items:stretch; width:100% }
+}
+/* each client name stays whole; the dot belongs to the name before it */
+.dgrid p span{ display:inline-block; white-space:nowrap }
+.dgrid p span:not(:last-child)::after{ content:"\00b7"; color:var(--red); margin:0 .5em }
+.dgrid .sec:last-child{ grid-column:1 / -1; padding-left:0 !important; border-left:0 !important }
+.dir .head{ max-width:none }
+
+/* ---------- The Expat family: the two annual guides beside the magazine ---------- */
+.family{ margin-top:100px }
+.family .rh{ display:flex; justify-content:space-between; align-items:baseline; padding-bottom:22px;
+             border-bottom:1px solid rgba(255,255,255,.14); margin-bottom:44px }
+.family .rh > span{ font-family:var(--display); font-weight:700; font-size:12px; letter-spacing:.22em;
+                    text-transform:uppercase; color:rgba(255,255,255,.7) }
+.family .rh .more{ color:#fff }
+.fam{ display:grid; grid-template-columns:1fr 1fr; gap:28px }
+.fam article{ display:grid; grid-template-columns:170px 1fr; gap:32px; align-items:center;
+              background:#16171B; border:1px solid rgba(255,255,255,.07); padding:34px }
+.fam .fc img{ width:100%; height:auto; box-shadow:0 20px 40px rgba(0,0,0,.55); transition:transform .3s ease }
+.fam .fc:hover img{ transform:translateY(-5px) }
+.fam .k{ font-family:var(--display); font-weight:700; font-size:11px; letter-spacing:.2em;
+         text-transform:uppercase; color:var(--red) }
+.fam h3{ font-family:var(--display); font-weight:800; font-size:24px; line-height:1.15; color:#fff; margin-top:10px }
+.fam h3 .serif{ display:block; font-weight:400; font-size:27px }
+.fam p{ color:rgba(255,255,255,.7); font-size:15.5px; margin-top:14px }
+.fam .lk{ display:flex; gap:22px; flex-wrap:wrap; margin-top:20px }
+.fam .lk .more{ color:#fff }
+.fam .lk .more + .more{ color:rgba(255,255,255,.65) }
+/* The Expat page: same block, same black */
+.a-recent .family{ margin-top:90px }
+@media (max-width:1100px){ .fam{ grid-template-columns:1fr } }
+@media (max-width:900px){
+  .family{ margin-top:64px } .family .rh{ flex-direction:column; gap:10px }
+  .fam article{ grid-template-columns:110px 1fr; gap:20px; padding:22px }
+  .fam h3{ font-size:19px } .fam h3 .serif{ font-size:22px } .fam p{ font-size:14.5px }
+  .fam .lk{ gap:14px; flex-direction:column; align-items:flex-start }
+}
+
+/* ---------- The Expat family, as rows of editions ----------
+   Each annual guide: its description on the left, its last six editions on
+   the right, newest first, each linked to the edition on Calameo. */
+.fam-row{ display:grid; grid-template-columns:340px 1fr; gap:60px; align-items:center;
+          padding:44px 0; border-bottom:1px solid rgba(255,255,255,.1) }
+.fam-row:first-of-type{ padding-top:4px }
+.fam-row:last-child{ border-bottom:0; padding-bottom:0 }
+.fam-row .k{ font-family:var(--display); font-weight:700; font-size:11px; letter-spacing:.2em;
+             text-transform:uppercase; color:var(--red) }
+.fam-row h3{ font-family:var(--display); font-weight:800; font-size:26px; line-height:1.15; color:#fff; margin-top:10px }
+.fam-row h3 .serif{ display:block; font-weight:400; font-size:30px }
+.fam-row p{ color:rgba(255,255,255,.7); font-size:15.5px; margin-top:14px }
+.fam-row .lk{ display:flex; gap:22px; flex-wrap:wrap; margin-top:20px }
+.fam-row .lk .more{ color:#fff }
+.fam-row .lk .more + .more{ color:rgba(255,255,255,.6) }
+.eds{ display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:20px; align-items:end }
+.eds .iss img{ aspect-ratio:auto; box-shadow:0 14px 28px rgba(0,0,0,.5) }
+.eds .iss:first-child img{ outline:2px solid var(--red); outline-offset:4px }
+.eds .iss span{ font-size:10.5px; letter-spacing:.14em }
+/* the big latest cover now comes from Calameo at about 400px: shown at that size */
+/* (desktop only: unconditional, this overrode the phone layout and pushed the
+   text off the right edge of the screen, found in the 30 Sep review) */
+@media (min-width:1101px){ .a .mag .feat{ grid-template-columns:1fr 380px } }
+@media (max-width:1100px){ .fam-row{ grid-template-columns:1fr; gap:30px } }
+@media (max-width:900px){
+  .eds{ grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px 14px }
+  .fam-row{ padding:36px 0 } .fam-row h3{ font-size:21px } .fam-row h3 .serif{ font-size:24px }
+  .fam-row .lk{ flex-direction:column; gap:14px }
+}
+
+/* ---------- The Circular ---------- */
+/* its own green, sampled off the masthead, only where the magazine itself is shown */
+.brow .pic.green{ background:#107840 }
+.brow .pic.green .cv{ box-shadow:0 30px 60px rgba(0,0,0,.4) }
+.circ{ display:grid; grid-template-columns:150px 1fr; gap:44px; align-items:center; margin-top:28px;
+       background:#fff; padding:36px 44px; border-left:4px solid #107840; transition:box-shadow .25s }
+.circ:hover{ box-shadow:0 20px 40px rgba(20,20,30,.08) }
+.circ img{ width:150px; height:auto; box-shadow:0 16px 32px rgba(0,0,0,.22); transform:rotate(-2deg) }
+.circ .eyebrow{ color:#107840 }
+.circ h3{ font-family:var(--display); font-weight:800; font-size:28px; line-height:1.15; margin-top:10px }
+.circ h3 .serif{ font-weight:400 }
+.circ p{ color:var(--soft); margin:12px 0 16px; max-width:640px }
+@media (max-width:900px){
+  .circ{ grid-template-columns:90px 1fr; gap:20px; padding:24px 20px }
+  .circ img{ width:90px } .circ h3{ font-size:21px } .circ p{ font-size:15px }
+}
+
+/* ---------- four-across rows (Mike, 30 Sep 2026: "looks inconsistent") ----------
+   The hero pillars and the black figures band now share one rule: four equal
+   columns, a 64px gap, and the divider drawn in the middle of each gap, so
+   every column's text starts the same distance from its line. The pillars'
+   rule sits inside the page margins, flush with the text, not 40px past it. */
+.a .pillars, .a .figs .row{ grid-template-columns:repeat(4,minmax(0,1fr)); column-gap:64px }
+.a .pillars > a, .a .pillars > a + a, .a .figs .row > div, .a .figs .row > div + div{
+  position:relative; border-left:0; padding-left:0 }
+.a .pillars > a + a::before, .a .figs .row > div + div::before{
+  content:""; position:absolute; left:-32px; top:0; bottom:0; width:1px; background:rgba(255,255,255,.16) }
+.a .pillars{ border-top:0 }
+.a .pillars::after{ content:""; position:absolute; top:-1px; left:40px; right:40px; height:1px;
+                    background:rgba(255,255,255,.22) }
+.a .figs span{ max-width:none }
+@media (max-width:900px){
+  .a .pillars, .a .figs .row{ grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:40px }
+  .a .pillars > a + a::before, .a .figs .row > div + div::before{ display:none }
+}
+@media (max-width:720px){ .a .pillars::after{ left:20px; right:20px } }
+
+/* sectors flow down three balanced columns, like a newspaper, now that
+   Education is three times the length of the others (30 Sep 2026) */
+.dgrid{ display:block; columns:3; column-gap:68px; column-rule:1px solid var(--rule) }
+.dgrid .sec, .dgrid .sec:nth-child(n){ break-inside:avoid; padding:30px 0 32px !important; border-left:0 !important }
+.dgrid .sec{ display:inline-block; width:100% }
+@media (max-width:1100px){ .dgrid{ columns:2; column-gap:52px } }
+@media (max-width:900px){ .dgrid{ columns:1 } .dgrid .sec, .dgrid .sec:nth-child(n){ padding:26px 0 !important } }
+
+/* ===========================================================================
+   OUR WORK (Mike, 30 Sep 2026): the group laid out as Print, Digital,
+   Events and MM2H, on the homepage and on its own page.
+   =========================================================================== */
+
+/* ---------- Our work page: the four chapters ---------- */
+.chapnav{ background:#fff; border-bottom:1px solid var(--rule); position:sticky; top:74px; z-index:8 }
+.chapnav .wrap{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)) }
+.chapnav a{ display:flex; align-items:baseline; gap:12px; padding:22px 0 20px; font-family:var(--display);
+            font-weight:800; font-size:15px; color:var(--ink); border-bottom:2px solid transparent;
+            margin-bottom:-1px; transition:border-color .25s, color .25s }
+.chapnav a span{ font-weight:700; font-size:11px; letter-spacing:.2em; color:var(--red) }
+.chapnav a:hover, .chapnav a.on{ border-bottom-color:var(--red) }
+.brandrows{ padding-top:10px }
+.chap{ display:grid; grid-template-columns:1fr minmax(0,440px); column-gap:60px; align-items:end;
+       padding:100px 0 34px; margin-bottom:40px; border-bottom:1px solid var(--rule); scroll-margin-top:120px }
+.chap .n{ grid-column:1; font-family:var(--display); font-weight:700; font-size:12px; letter-spacing:.22em; color:var(--red) }
+.chap .n::after{ content:""; display:inline-block; width:30px; height:1px; background:var(--red);
+                 vertical-align:middle; margin-left:12px }
+.chap h2{ grid-column:1; font-family:var(--display); font-weight:800; font-size:84px; letter-spacing:-.035em;
+          line-height:.95; margin-top:14px; color:var(--ink) }
+.chap p{ grid-column:2; grid-row:2; font-size:18px; line-height:1.6; color:var(--soft); padding-bottom:8px }
+.brow{ scroll-margin-top:140px }
+.brow .pic.photo{ position:relative; padding:0; overflow:hidden; background:var(--black) }
+.brow .pic.photo img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover }
+@media (max-width:900px){
+  .chapnav{ position:static } .chapnav a{ font-size:13px; padding:16px 0 14px; justify-content:center } .chapnav a span{ display:none }
+  .chap{ grid-template-columns:1fr; padding:64px 0 26px; margin-bottom:28px }
+  .chap h2{ font-size:54px } .chap p{ grid-column:1; grid-row:3; margin-top:14px; font-size:16.5px }
+  .brow .pic.photo{ min-height:300px }
+}
+
+/* ---------- homepage "Our work": four tall photographs (Mike, 30 Sep 2026) ----------
+   Only the pictures and their names; each opens its chapter on the Our work
+   page (MM2H opens mm2h.com). The one you point at widens and says a line
+   about itself. */
+.cols4{ display:flex; gap:14px; height:620px; margin-top:8px }
+.cols4 .col{ position:relative; flex:1 1 0; min-width:0; overflow:hidden; background:var(--black); color:#fff;
+             transition:flex-grow .8s cubic-bezier(.2,.7,.2,1) }
+.cols4 .col img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+                 transition:transform 1.6s cubic-bezier(.2,.7,.2,1), filter .8s ease }
+.cols4 .col::after{ content:""; position:absolute; inset:0;
+  background:linear-gradient(to bottom,rgba(5,6,10,.45) 0%,rgba(5,6,10,0) 26%,rgba(5,6,10,0) 48%,rgba(5,6,10,.9) 100%) }
+.cols4 .n{ position:absolute; z-index:1; top:26px; left:28px; font-family:var(--display); font-weight:700;
+           font-size:12px; letter-spacing:.22em }
+.cols4 .n::after{ content:""; display:inline-block; width:30px; height:1px; background:var(--red);
+                  vertical-align:middle; margin-left:12px; transition:width .6s ease }
+.cols4 .cap{ position:absolute; z-index:1; left:28px; right:28px; bottom:30px; display:block }
+.cols4 .cap b{ display:block; font-family:var(--display); font-weight:800; font-size:44px; letter-spacing:-.025em; line-height:1 }
+.cols4 .cap small{ display:block; margin-top:12px; font-family:var(--display); font-weight:700; font-size:11px;
+                   letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.72) }
+.cols4 .ln{ display:block; max-width:340px; font-size:16px; line-height:1.55; color:rgba(255,255,255,.86);
+            max-height:0; opacity:0; overflow:hidden; transition:max-height .6s ease, opacity .5s ease, margin .6s ease }
+.cols4 .go{ display:inline-block; margin-top:18px; font-family:var(--display); font-weight:700; font-size:11.5px;
+            letter-spacing:.2em; text-transform:uppercase; padding-bottom:5px; border-bottom:1.5px solid var(--red) }
+.cols4 .go::after{ content:" \2192"; color:var(--red) }
+@media (hover:hover) and (min-width:901px){
+  .cols4:hover .col{ flex-grow:.8 }
+  .cols4:hover .col img{ filter:brightness(.72) saturate(.85) }
+  .cols4 .col:hover{ flex-grow:1.7 }
+  .cols4 .col:hover img{ transform:scale(1.06); filter:none }
+  .cols4 .col:hover .n::after{ width:60px }
+  .cols4 .col:hover .ln{ max-height:120px; opacity:1; margin-top:16px }
+}
+@media (max-width:900px){
+  .cols4{ flex-wrap:wrap; height:auto; gap:12px }
+  .cols4 .col{ flex:1 1 calc(50% - 6px); height:380px }
+  .cols4 .cap b{ font-size:34px }
+}
+@media (max-width:560px){
+  .cols4 .col{ flex-basis:100%; height:300px }
+  .cols4 .ln{ max-height:none; opacity:1; margin-top:12px; font-size:15px }
+}
+
+/* Digital: ExpatGo's own homepage, scrolling slowly, as if someone is reading it */
+.cols4 .scroll{ position:absolute; inset:0; overflow:hidden; background:#fff }
+.cols4 .col .scroll img{ inset:auto; top:0; left:0; width:100%; height:auto; object-fit:initial;
+                         animation:browse 34s ease-in-out infinite alternate }
+@keyframes browse{ 0%, 6%{ transform:translateY(0) } 94%, 100%{ transform:translateY(calc(-100% + 620px)) } }
+.cols4 .col:has(.scroll)::after{
+  background:linear-gradient(to bottom,rgba(5,6,10,.55) 0%,rgba(5,6,10,.05) 22%,rgba(5,6,10,.1) 45%,rgba(5,6,10,.93) 100%) }
+@media (max-width:900px){ @keyframes browse{ 0%, 6%{ transform:translateY(0) } 94%, 100%{ transform:translateY(calc(-100% + 380px)) } } }
+@media (max-width:560px){ @keyframes browse{ 0%, 6%{ transform:translateY(0) } 94%, 100%{ transform:translateY(calc(-100% + 300px)) } } }
+
+/* WhiskyPLUS 2026 (TEG's own YouTube film) behind the Events photographs:
+   cropped to fill whatever shape the box is, fades in once it is playing */
+.yt{ position:absolute; inset:0; overflow:hidden; container-type:size; opacity:0; transition:opacity .6s ease;
+     pointer-events:none }
+.yt.on{ opacity:1 }
+.yt iframe{ position:absolute; top:50%; left:50%; border:0; transform:translate(-50%,-50%);
+            width:max(100cqw, 177.78cqh); height:max(100cqh, 56.25cqw) }
+/* zoomed 30% past "just fills the box", so YouTube's title bar (top) and
+   captions (bottom) fall outside the crop (Mike, 30 Sep 2026) */
+.yt iframe{ width:calc(1.3 * max(100cqw, 177.78cqh)); height:calc(1.3 * max(100cqh, 56.25cqw)) }
+@media (hover:hover) and (min-width:901px){
+  .cols4:hover .col .yt{ filter:brightness(.72) saturate(.85); transition:opacity .6s ease, filter .8s ease }
+  .cols4 .col:hover .yt{ filter:none }
+}
+
+/* once the original file is in assets/whiskyplus.mp4 the build swaps the
+   YouTube player for a plain looping video in the same box */
+.ytv{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none }
+
+/* ---------- Events: the two flagships (Mike, 30 Sep 2026) ----------
+   WhiskyPLUS and Expressions each get their own logo, large, on black, beside
+   a photograph (the event film plays there once its file is in assets/). */
+.flags{ background:var(--black); color:#fff; padding:120px 0 110px }
+.flags .head .eyebrow{ color:rgba(255,255,255,.7) }
+.flags .h-sec{ color:#fff }
+.flag{ display:grid; grid-template-columns:1.25fr 1fr; background:#131418; margin-top:36px; min-height:500px }
+.flag.flip .media{ order:2 }
+.flag .media{ position:relative; overflow:hidden; min-height:420px; background:#000 }
+.flag .media img, .flag .media .ytv{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+                                     transition:transform 1.6s cubic-bezier(.2,.7,.2,1) }
+.flag:hover .media img{ transform:scale(1.04) }
+.flag .body{ padding:64px 60px; display:flex; flex-direction:column; justify-content:center; align-items:flex-start }
+.flag .mark{ display:block; height:auto; margin-bottom:36px }
+.flag .mark.wp{ width:min(100%,380px); filter:brightness(0) invert(1) }
+.flag .mark.ex{ width:min(100%,420px); margin-left:-8px }
+.flag .body .eyebrow{ color:var(--red) }
+.flag .mark.ex ~ .eyebrow{ color:#FF914D }
+.flag .lede{ color:rgba(255,255,255,.8); margin-top:14px; max-width:460px }
+.flag .cta{ margin-top:32px }
+.evrows .head{ margin-bottom:44px }
+.evs.two{ grid-template-columns:repeat(2,minmax(0,1fr)) }
+.evs.two .im{ height:360px }
+@media (max-width:900px){
+  .flags{ padding:70px 0 }
+  .flag{ grid-template-columns:1fr; min-height:0 }
+  .flag.flip .media{ order:0 }
+  .flag .media{ min-height:260px }
+  .flag .body{ padding:36px 24px 40px }
+  .evs.two{ grid-template-columns:1fr } .evs.two .im{ height:240px }
+}
+
+/* Our work, Events row: the two flagship logos */
+.brow .marks{ display:flex; align-items:center; gap:30px; margin-top:28px; flex-wrap:wrap }
+.brow .marks .wp{ height:78px; width:auto }
+.brow .marks .ex{ height:34px; width:auto }
+
+/* the team: senior staff only (Mike, 30 Sep 2026), twelve, four across */
+.people{ grid-template-columns:repeat(4,minmax(0,1fr)); gap:48px 32px }
+@media (max-width:900px){ .people{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:30px 16px } }
