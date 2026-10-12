@@ -284,8 +284,8 @@ function teg_cal_get( $url ) {
 /**
  * Cuts the cover out of Calameo's sharing card for a publication (1200x628, the cover centred on a
  * flat grey ground with a shadow down and to the right): about 400px wide, sharper than the 300px
- * thumbnail. Returns array( jpeg bytes, width, height ) or null. The same method made the covers
- * already on the site (scratchpad cal-crop.js).
+ * thumbnail. Returns array( jpeg bytes, width, height ) or null. The covers already in the theme's
+ * image set were cut the same way.
  */
 function teg_cal_crop_card( $bytes ) {
 	if ( ! function_exists( 'imagecreatefromstring' ) ) {
