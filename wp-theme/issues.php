@@ -4,7 +4,7 @@
  *
  * Every cover, issue name and "Read" link on the designed pages is a {{cal:...}} token, filled here
  * from the list of issues: the ones known when the theme was built (inc/calameo.php, covers in the
- * copied images), plus any WordPress has since found on Calameo. Twice a day it reads TEG's newest
+ * theme's images), plus any WordPress has since found on Calameo. Twice a day it reads TEG's newest
  * 24 publications from the list Calameo's own account page uses (public, no key), recognises a new
  * Expat issue, Welcome Guide or Education Guide by its name, saves its cover into
  * wp-content/uploads/teg-media/calameo/, and from then on every page shows it.
@@ -68,7 +68,7 @@ function teg_cal_dir() {
 	);
 }
 
-/** An issue's cover: saved from Calameo if it was found later, else among the copied images. */
+/** An issue's cover: saved from Calameo if it was found later, else among the theme's images. */
 function teg_cal_src( $kind, $c ) {
 	if ( ! empty( $c['file'] ) ) {
 		return teg_cal_dir()['url'] . '/' . $c['file'];
@@ -79,7 +79,7 @@ function teg_cal_src( $kind, $c ) {
 /** The big cover of the newest issue: a sharper print-file copy (<slug>-hi.jpg) when the build had one. */
 function teg_cal_latest_img( $issues ) {
 	$c = $issues['expat'][0];
-	if ( empty( $c['file'] ) && isset( teg_assets()['files'][ 'expat/' . $c['slug'] . '-hi.jpg' ] ) ) {
+	if ( empty( $c['file'] ) && teg_asset_exists( 'expat/' . $c['slug'] . '-hi.jpg' ) ) {
 		return teg_asset_url( 'expat/' . $c['slug'] . '-hi.jpg' );
 	}
 	return teg_cal_src( 'expat', $c );

@@ -29,9 +29,10 @@ the theme is uploaded. Make the change in the source project and rebuild.
 - `build-site.js`: builds the static preview into `dist/`
 - `build-wp-theme.js`: builds this theme into `../tegmedia-wp/theme/teg-media/` and the zip
 
-To change a designed page: edit `src/site/pages/<page>.html`, run `node build-wp-theme.js`
-(Node 18+), upload `teg-media-theme.zip` under Appearance > Themes > Add New > Upload, and choose
-"Replace active with uploaded". Bump `VERSION` in `build-wp-theme.js` each time.
+To change a designed page: edit `src/site/pages/<page>.html`, bump `VERSION` in
+`build-wp-theme.js`, run `node build-wp-theme.js` (Node 18+, nothing to install), then upload
+`../tegmedia-wp/teg-media-theme.zip` under Appearance > Themes > Add New > Upload and choose
+"Replace active with uploaded". Try it on the staging site first.
 
 ## Things that update themselves
 
@@ -42,11 +43,25 @@ To change a designed page: edit `src/site/pages/<page>.html`, run `node build-wp
 
 ## Images
 
-Images are not in the theme zip (the server's upload limit). Appearance > TEG Media images >
-"Copy images to this site" copies them into `wp-content/uploads/teg-media/assets/`. Any image
-already there is always served from this site; only an image the site does not have yet is
-loaded from the design preview. Once the copy finishes, nothing loads from the preview.
-They can also be uploaded by hand: extract the images zip into `wp-content/uploads/`.
+Every photograph, cover and the homepage film is inside the theme, in `assets/`, so the site
+loads images only from itself and each theme update brings its own. The zip is about 20 MB. If
+WordPress refuses the upload ("The link you followed has expired"), raise `upload_max_filesize`
+and `post_max_size` to 64M in cPanel > MultiPHP INI Editor, or unpack the zip into
+`wp-content/themes/` with cPanel's File Manager.
+
+Up to version 1.3.0 the images were copied into `wp-content/uploads/teg-media/assets/` from the
+design preview. That folder is no longer used and can be deleted.
+
+## Google Analytics
+
+The theme adds the site's Google Analytics tag (G-LKT9ZPPN4P, the property the old site reports
+to) on every page, but only on the public site: while Settings > Reading > "Discourage search
+engines" is ticked (staging), nothing is sent. If a plugin or snippet already adds Google's tag or
+Tag Manager, the theme's stands down so no visit is counted twice. Change or switch it off in
+`wp-config.php`:
+
+    define( 'TEG_GA_ID', 'G-XXXXXXXXXX' );   // a different property
+    define( 'TEG_GA_ID', '' );               // off
 
 ## Contact form
 
@@ -67,12 +82,15 @@ Change the recipient with the `teg_contact_to` filter (default: the site admin e
 - **Ultimate Addons for Elementor (Header Footer)**: its header/footer override is switched off
   with its own filters.
 - On designed pages only the theme's styles and scripts load (plus jQuery and the admin bar), so
-  plugins built for the old Elementor pages cannot restyle them. Pop-ups that plugins print after the
-  footer are hidden on those pages.
+  plugins built for the old Elementor pages cannot restyle them. Kept as well: analytics and tag
+  managers, cookie and consent tools, and WooCommerce's order attribution (matched by handle; see
+  `teg_keep_asset()` and the `teg_keep_assets` filter). Pop-ups that plugins print after the footer
+  are hidden on those pages.
 
 Tested 7 October 2026 on WordPress 7.1.3, PHP 8.4, WooCommerce 11.1.2, Elementor 4.3.4, UAE 2.9.5,
 ShopLentor 3.5.4, Advanced Product Fields 1.7.1, LiteSpeed Cache 7.9.1: no errors or warnings from
-the theme.
+the theme. Version 1.3.1 re-checked 12 October 2026 on WordPress 7.1.3 and PHP 8.4: every
+designed page identical to the design at desktop and phone widths, no errors or warnings.
 
 ## Security headers
 
@@ -87,10 +105,32 @@ tested against checkout and iPay88.
 
 Keep the previous theme (Metrobank Child) installed. Appearance > Themes > Activate it to go back
 in one click. Nothing in this theme changes the database except its own options
-(`teg_assets_set`, `teg_cal_*`) and the Enquiries post type.
+(`teg_cal_*`), the Enquiries post type, and any pages it was asked to create (see below).
 
 ## Redirects
 
-Old page addresses forward to the new pages (302 during staging). Switch to permanent with:
+Old page addresses forward to the new pages: permanent (301) on the public site, temporary (302)
+while "Discourage search engines" is ticked on staging. Override with the `teg_redirect_status`
+filter.
 
-    add_filter( 'teg_redirect_status', function () { return 301; } );
+## The pages WordPress needs
+
+Each designed page is shown through `page-<slug>.php`, so WordPress needs a published, empty page
+at each address: /about/, /portfolio/, /membership/, /advertise/, /contact/, /events/,
+/clients/, /read/ and /the-expat/. The homepage, /privacy/ and the 404 page need none. If any is
+missing, administrators see a notice with a "Create the missing pages" button.
+
+## Before go-live
+
+1. Make a fresh staging copy of the live site (cPanel > WP Toolkit or Softaculous), with
+   "Discourage search engines" ticked and customer emails and payments in test mode.
+2. Install this theme on staging and activate it; create any missing pages from the notice.
+3. Run the test list: every page on desktop and phone, the contact form (check Enquiries and the
+   inbox), a TEG Card and a subscription purchase through iPay88 in test mode, cart, checkout and
+   account, JavaScript console and the PHP error log, page speed, redirects, 404, sitemap
+   (/wp-sitemap.xml) and robots.txt.
+4. Back up the live site (files and database) and confirm a restore works.
+5. On live: upload and activate the theme, create any missing pages, purge LiteSpeed Cache, and
+   make one small real purchase, refunded afterwards.
+6. Check Google Analytics Realtime shows visits, and that old addresses answer with 301.
+7. Rolling back: activate Metrobank Child (see above).
