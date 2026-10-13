@@ -13,11 +13,14 @@
 @keyframes drift{ from{ transform:scale(1.03) } to{ transform:scale(1.16) translate(-1.2%,-.8%) } }
 @keyframes drift-s{ from{ transform:scale(1.02) } to{ transform:scale(1.1) translate(1%,-.6%) } }
 .a .hero video.bg{ transform:scale(1.02) }
-/* Chrome on Windows hands a still video to the graphics card's own video layer and takes it back
-   while the page scrolls. The two draw this clip's colours slightly differently (the file does not
-   say which colour matrix it uses), so the hero darkened during a scroll and snapped back when it
-   stopped (Mike, 13 Oct 2026). A hair under full opacity keeps it on one path, so it never changes. */
-.a .hero video.bg{ opacity:.995 }
+/* Chrome on Windows hands the hero film to the graphics card's own video layer when nothing on the
+   page needs to mix with it, and takes it back when something does: while the page scrolls, and
+   whenever the stuck header's blurred backdrop sits over it. The two paths draw this clip's colours
+   slightly differently (the file does not say which colour matrix it uses), so the hero darkened
+   as you scrolled and brightened again at the top (Mike, 13 Oct 2026). A colour filter too small
+   to see means Chrome always has to draw the film itself, so it looks the same all the way down.
+   (Opacity alone, tried in 1.3.3, was not enough: newer Chrome hands faded video over too.) */
+.a .hero video.bg{ filter:saturate(1.001) }
 
 /* ---------- the hero arrives in order ---------- */
 @keyframes rise{ from{ opacity:0; transform:translateY(26px) } to{ opacity:1; transform:none } }
