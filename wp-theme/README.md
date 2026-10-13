@@ -43,14 +43,20 @@ To change a designed page: edit `src/site/pages/<page>.html`, bump `VERSION` in
 
 ## Images
 
-Every photograph, cover and the homepage film is inside the theme, in `assets/`, so the site
-loads images only from itself and each theme update brings its own. The zip is about 20 MB. If
-WordPress refuses the upload ("The link you followed has expired"), raise `upload_max_filesize`
-and `post_max_size` to 64M in cPanel > MultiPHP INI Editor, or unpack the zip into
-`wp-content/themes/` with cPanel's File Manager.
+The site loads its photographs, covers and homepage film only from itself. There are two builds:
 
-Up to version 1.3.0 the images were copied into `wp-content/uploads/teg-media/assets/` from the
-design preview. That folder is no longer used and can be deleted.
+- **Standard** (`node build-wp-theme.js`): the images travel inside the theme, in `assets/`, so
+  each update brings its own. The zip is about 20 MB. If WordPress refuses the upload ("The link
+  you followed has expired"), raise `upload_max_filesize` and `post_max_size` to 64M in cPanel >
+  MultiPHP INI Editor, or unpack the zip into `wp-content/themes/` with cPanel's File Manager.
+- **Slim** (`node build-wp-theme.js --slim`, about 0.5 MB): the images stay out of the theme and the
+  pages read them from `wp-content/uploads/teg-media/assets/`. That folder must already hold
+  every image: the 1.3.0 theme's Copy images button filled it, and the slim build also writes
+  `teg-media-images.zip`, which fills it when unpacked into `wp-content/uploads/` (cPanel File
+  Manager). Unpack the new images pack whenever the images change. If any image is missing,
+  administrators see a notice naming it.
+
+`inc/assets.php` (generated) records which build is installed and lists every image with its size.
 
 ## Google Analytics
 
@@ -89,8 +95,8 @@ Change the recipient with the `teg_contact_to` filter (default: the site admin e
 
 Tested 7 October 2026 on WordPress 7.1.3, PHP 8.4, WooCommerce 11.1.2, Elementor 4.3.4, UAE 2.9.5,
 ShopLentor 3.5.4, Advanced Product Fields 1.7.1, LiteSpeed Cache 7.9.1: no errors or warnings from
-the theme. Version 1.3.1 re-checked 12 October 2026 on WordPress 7.1.3 and PHP 8.4: every
-designed page identical to the design at desktop and phone widths, no errors or warnings.
+the theme. Version 1.3.2 re-checked 13 October 2026 on WordPress 7.1.3 and PHP 8.4, standard and slim builds:
+every designed page identical to the design at desktop and phone widths, no errors or warnings.
 
 ## Security headers
 
