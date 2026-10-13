@@ -13,6 +13,11 @@
 @keyframes drift{ from{ transform:scale(1.03) } to{ transform:scale(1.16) translate(-1.2%,-.8%) } }
 @keyframes drift-s{ from{ transform:scale(1.02) } to{ transform:scale(1.1) translate(1%,-.6%) } }
 .a .hero video.bg{ transform:scale(1.02) }
+/* Chrome on Windows hands a still video to the graphics card's own video layer and takes it back
+   while the page scrolls. The two draw this clip's colours slightly differently (the file does not
+   say which colour matrix it uses), so the hero darkened during a scroll and snapped back when it
+   stopped (Mike, 13 Oct 2026). A hair under full opacity keeps it on one path, so it never changes. */
+.a .hero video.bg{ opacity:.995 }
 
 /* ---------- the hero arrives in order ---------- */
 @keyframes rise{ from{ opacity:0; transform:translateY(26px) } to{ opacity:1; transform:none } }
